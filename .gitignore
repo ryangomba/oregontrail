@@ -1,5 +1,10 @@
+*~
+*.log
+*.cache
 .bundle
-db/*.sqlite3
-log/*.log
-tmp/
-.sass-cache/
+.DS_Store
+
+Project/db/*.sqlite3
+Project/log/*.log
+Project/tmp/
+Project/.sass-cache/
