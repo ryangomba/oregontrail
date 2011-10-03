@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  health: 1
+  profession: MyString
+
+two:
+  name: MyString
+  health: 1
+  profession: MyString

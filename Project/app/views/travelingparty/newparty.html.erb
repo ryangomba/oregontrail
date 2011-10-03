@@ -1,0 +1,21 @@
+<%= form_for(@traveling_party) do |f| %>
+
+<% speedlist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+<% rationlist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+
+   <%= f.label :speed %>
+   <%= f.select(:speed, speedlist) %>
+
+
+   <%= f.label :ration %>
+   <%= f.select(:ration, rationlist) %>
+
+
+   <%= f.label :position %>
+   <%= f.number_field(:position, 0) %><br />
+
+   <br />
+ <div class="actions">
+   <%= f.submit %>
+ </div>
+<% end %>
