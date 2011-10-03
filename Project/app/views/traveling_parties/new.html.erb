@@ -1,0 +1,23 @@
+<%= form_for(@traveling_party) do |f| %>
+
+    <% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+
+    <%= f.label :speed %>
+    <%= f.select(:speed, scale) %>
+    <br />
+
+    <%= f.label :ration %>
+    <%= f.select(:ration, scale) %>
+    <br />
+
+    <%= f.hidden_field(:position, :value => 0) %>
+    <div class="actions"><%= f.submit %></div>
+
+<% end %>
+
+<%= render :template => 'travelers/new_leader' %>
+
+<% @travelers.each do |traveler| %>
+    <% @traveler = traveler %>
+    <%= render :template => 'travelers/new' %>
+<% end %>
