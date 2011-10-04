@@ -1,15 +1,23 @@
 class TravelingPartiesController < ApplicationController
 
-    # POST /traveling_parties
+    def new
+        @traveling_party = TravelingParty.new
+        5.times do
+            traveler = @traveling_party.travelers.build
+        end
+    end
+
     def create
         @traveling_party = TravelingParty.new(params[:traveling_party])
-        respond_to do |format|
-            if @traveling_party.save
-                format.html { redirect_to @traveling_party, :notice => 'Athlete was successfully created.' }
-            else
-                format.html { render :action => "new" }
-            end
+        if @traveling_party.save
+            flash[:notice] = "Successfully created traveling party and travelers."
+            redirect_to '/store/'
+        else
+            redirect_to '/new/'
         end
+    end
+
+    def index
     end
 
 end
