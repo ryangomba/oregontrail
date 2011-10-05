@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20111002231203) do
 
 # Could not dump table "travelers" because of following StandardError
-#   Unknown type 'relations' for column 'traveling_party'
+#   Unknown type 'relations' for column 'traveling_party_id'
 
   create_table "traveling_parties", :force => true do |t|
     t.integer  "speed"
