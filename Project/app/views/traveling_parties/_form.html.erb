@@ -4,13 +4,15 @@
 
     <% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
 
+    <div class="form-field">
     <%= f.label :speed %>
     <%= f.select(:speed, scale) %>
-    <br />
+    </div>
 
+    <div class="form-field">
     <%= f.label :ration %>
     <%= f.select(:ration, scale) %>
-    <br />
+    </div>
 
     <%= f.hidden_field(:position, :value => 0) %>
 
