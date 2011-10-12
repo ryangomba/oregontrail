@@ -2,6 +2,7 @@
 *.swp
 *.log
 *.cache
+*.tmproj
 .bundle
 .DS_Store
 *.backup.sql

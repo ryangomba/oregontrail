@@ -3,7 +3,7 @@ class TravelingPartiesController < ApplicationController
     def new
         @traveling_party = TravelingParty.new
         5.times do
-            traveler = @traveling_party.travelers.build
+		   traveler = @traveling_party.travelers.build
         end
     end
 
