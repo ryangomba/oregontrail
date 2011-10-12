@@ -1,18 +1,21 @@
 <div id="new_traveler">
 
-	<% if is_leader %>
+    <div class="form-field">
+    
+    <% if is_leader %>
 		<%= f.label "Leader Name" %>
 		<%= f.text_field(:name) %>
 		<% professions = ['Farmer', 'Banker', 'Carpenter'] %>
 		<%= f.label :profession %>
 		<%= f.select(:profession, professions) %>
-
 	<% else %>
 		<%= f.label :name %>
 		<%= f.text_field(:name) %>
 		<%= f.hidden_field(:profession, :value => nil) %>
 	<% end %>
 
-	<%= f.hidden_field(:health, :value => 100) %>
+    </div>
+
+    <%= f.hidden_field(:health, :value => 10) %>
 
 </div>

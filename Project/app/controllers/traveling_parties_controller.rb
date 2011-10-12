@@ -13,6 +13,7 @@ class TravelingPartiesController < ApplicationController
             flash[:notice] = "Successfully created traveling party and travelers."
             redirect_to '/store/'
         else
+            flash[:error] = "Please specify a leader."
             redirect_to '/new/'
         end
     end

@@ -2,15 +2,19 @@
 
     <!-- Traveling Party Fields -->
 
-	<% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
-	<%= f.label :speed %>
-	<%= f.select(:speed, scale) %>
-	<!-- <br /> -->
+    <% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
 
-	<%= f.label :ration %>
-	<%= f.select(:ration, scale) %>
-	<br />
-	<%= f.hidden_field(:position, :value => 0) %>
+    <div class="form-field">
+    <%= f.label :speed %>
+    <%= f.select(:speed, scale) %>
+    </div>
+
+    <div class="form-field">
+    <%= f.label :ration %>
+    <%= f.select(:ration, scale) %>
+    </div>
+
+    <%= f.hidden_field(:position, :value => 0) %>
 
     <!-- Traveler Fields -->
 
