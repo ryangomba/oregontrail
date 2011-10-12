@@ -4,6 +4,8 @@
 *.cache
 .bundle
 .DS_Store
+*.backup.sql
+*.backup
 
 Project/db/*.sqlite3
 Project/log/*.log
