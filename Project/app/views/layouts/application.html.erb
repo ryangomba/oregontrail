@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%= stylesheet_link_tag    "application" %>
-    <%= stylesheet_link_tag    params[:controller] %>
+    <title>Project</title>
+    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag params[:controller] %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag params[:controller] %>
     <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div id="container">
+    <div class="wrapper">
+        
+        <div id="flash">
+        <%- flash.each do |key, msg| -%>
+            <div class="<%= key %>">
+                <p><%= msg %></p>
+            </div>
+        <%- end -%>
+        </div>
 
-<%= yield %>
+        <%= yield %>
 
-</div>
+    </div>
 
 </body>
 </html>
