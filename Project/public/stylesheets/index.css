@@ -1,0 +1,156 @@
+/*
+Dark green background: 336633
+Sky background: 00ccff
+*/
+
+body
+{
+	background: #336633;
+	text-align: center;
+}
+
+#container
+{
+	height: 600px;
+	width: 800px;
+	margin: 0px auto;
+	-moz-box-shadow: 0px 1px 1px #000;
+	-webkit-box-shadow: 0px 1px 1px #000;
+	box-shadow: 0px 1px 1px #000;
+}
+
+#sky
+{
+	background: #00ccff;
+	background-image: url('../images/sky.gif');
+	height: 326px;
+	width: 100%;
+}
+
+#horzContainer
+{
+	background: #00ccff;
+	height: 106px;
+	width: 100%;
+	float: none;
+}
+
+#wagon
+{
+	background-image: url('../images/wagon.gif');
+	height: 71px;
+	width: 109px;
+}
+
+#wagonfront
+{
+	background-image: url('../images/wagonfront.gif');
+	height: 35px;
+	width: 35px;
+	float: left;	
+}
+
+#wagonrear
+{
+	background-image: url('../images/wagonrear.gif');
+	height: 35px;
+	width: 13px;
+	float: left;
+}
+
+#leftwheel
+{
+	background-image: url('../images/leftbody.gif');
+	height: 23px;
+	width: 24px;
+	float: left;
+}
+
+#rightwheel
+{
+	background-image: url('../images/rightbody.gif');
+	height: 23px;
+	width: 24px;
+	float: left;
+}
+
+#underwagon
+{
+	background-image: url('../images/underwagon.gif');
+	margin-left: -24px;
+	margin-top: 23px;
+	height: 12px;
+	width: 24px;
+	float: left;
+}
+
+#middle
+{
+	background-image: url('../images/middlebody.gif');
+	height: 35px;
+	width: 13px;
+	float: left;
+}
+
+#grass
+{
+	background: #336633;
+	background-image: url('../images/grass.gif');
+	height: 168px;
+	width: 100%;
+}
+
+#oregontrail
+{
+	background-image: url('../images/oregontrail.gif');
+	height: 106px;
+	width: 395px;
+	margin-top: -71px;
+	float: left;
+}
+
+#buttondiv
+{
+	background-image: url('../images/buttonbg.gif');
+	height: 106px;
+	width: 244px;
+	float: left;
+	margin-top: -71px;
+}
+
+#rightdiv
+{
+	background-image: url('../images/rightbg.gif');
+	height: 106px;
+	width: 52px;
+	float: left;
+	margin-top: -71px;
+}
+
+img.wagonwheel
+{
+	-webkit-animation-name: spin;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-duration: 2s;
+}
+
+
+div.button
+{
+	background-image: url('../images/buttonUp.png');
+	height: 106px;
+	width: 244px;
+}
+
+div.button:hover {background: url('../images/buttonDown.png'); }
+div.button:active {background: url('../images/buttonClick.png'); }
+
+@-webkit-keyframes spin {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(360deg);
+	}
+}
