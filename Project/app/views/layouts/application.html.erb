@@ -2,13 +2,20 @@
 <html>
 <head>
     <title>Project</title>
-    <%= stylesheet_link_tag    "application" %>
-    <%= stylesheet_link_tag    params[:controller] %>
+    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag params[:controller] %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag params[:controller] %>
     <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div id="flash">
+<%- flash.each do |key, msg| -%>
+    <div id="<%= key %>">
+        <p><%= msg %></p>
+    </div>
+<%- end -%>
 
 <%= yield %>
 
