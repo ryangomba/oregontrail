@@ -1,2 +1,34 @@
 <h1>Purchase Items at the Store</h1>
-<p>TODO</p>
+
+<%= form_for @traveling_party do |f| %>
+
+<p>You have <span id="cur_weight"><%= @traveling_party.capacity %></span> lbs free</p>
+<p>You have $<span id="cur_money"><%= @traveling_party.money %></span></p>
+
+<br/><br/>
+
+<div class="table-field">
+    <table>
+
+    <tr>
+        <th><b>Item name</th>
+        <th><b>Weight</th>
+        <th><b>Price</th>
+        <th><b>Quantity</th>
+    </tr>
+    
+        <%= f.fields_for :items do |i| %>
+            <%= render "item", {:f => i, :item => i.object} %>
+        <% end %>
+    
+    </table>
+</div>
+    
+<br/><br/>
+    
+<div id="move-on">
+<p><%= f.submit 'Purchase Items' %></p>
+</div>
+
+<% end %>
+

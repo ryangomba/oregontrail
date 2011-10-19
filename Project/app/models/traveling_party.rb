@@ -6,8 +6,20 @@ class TravelingParty < ActiveRecord::Base
     accepts_nested_attributes_for :travelers, :reject_if => :reject_traveler, :allow_destroy => true
 	accepts_nested_attributes_for :items, :allow_destroy => true
 
+    after_create :make_inventory
+
+    def make_inventory
+        ['Food', 'Ox', 'Clothing', 'Ammo'].each do |i|
+            Item.create(:name => i, :quantity => 0, :traveling_party_id => self.id)
+        end
+    end
+
     def reject_traveler(attributes)
        attributes['profession'].blank? and attributes['name'].blank?
+    end
+
+    def leader
+        return self.travelers.where("profession IS NOT NULL").first()
     end
 	
 	def calculate_money
@@ -18,12 +30,4 @@ class TravelingParty < ActiveRecord::Base
 		
 	end
 	
-	def get_money
-		'$ '+money.to_s
-	end
-	
-	def get_capacity
-		capacity.to_s+' lbs'
-	end
-
 end

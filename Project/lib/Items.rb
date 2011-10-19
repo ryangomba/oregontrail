@@ -1,4 +1,4 @@
-class Item
+class OneItem
 	attr_reader :name, :value, :weight
 	
 	def initialize(name, value, weight)
@@ -16,7 +16,7 @@ class Item
 	end
 end
 
-class Ox < Item
+class Ox < OneItem
 	#TODO - health attribute
 	
 	def initialize
@@ -24,31 +24,31 @@ class Ox < Item
 	end
 end
 
-class Food < Item
+class Food < OneItem
 	def initialize
 		super('Food', 5, 5)
 	end
 end
 
-class Clothing < Item
+class Clothing < OneItem
 	def initialize
 		super('Clothing', 5, 5)
 	end
 end
 
-class Ammunition < Item
+class Ammunition < OneItem
 	def initialize
 		super('Ammo', 2, 2)
 	end
 end
 
-class Money < Item
+class Money < OneItem
 	def initialize
 		#super('Food', value, 0)
 	end
 end
 
-class WagonPart < Item
+class WagonPart < OneItem
 	attr_accessor :working
 	@working = true
 end

@@ -1,10 +1,12 @@
 class TradingPartiesController < ApplicationController
 
 	def new
+
 		@trading_party = TradingParty.new
 		@arr = [Food.new, Ox.new, Clothing.new, Ammunition.new]
 		@traveling_party = TravelingParty.order("updated_at").last()
-	end
+	
+    end
 
 	def create
 	
@@ -22,9 +24,10 @@ class TradingPartiesController < ApplicationController
 		if params[:action] == "continue"
 			redirect_to '/gameplay/'
 		else
-		redirect_to '/store/'
+            redirect_to '/store/'
 		end
-	end
+	
+    end
 	
 	def continue
          redirect_to '/gameplay/'

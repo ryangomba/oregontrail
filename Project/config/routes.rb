@@ -51,7 +51,8 @@ Project::Application.routes.draw do
 
     root :to => 'home#index'
     match "/new" => 'traveling_parties#new'
-    match "/store" => 'trading_parties#new'
+    match "/store" => 'home#store'
+    match "/gameplay" => 'home#gameplay'
 
     resources :travelers
     resources :traveling_parties
