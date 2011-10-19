@@ -2,7 +2,7 @@ class TradingPartiesController < ApplicationController
 
 	def new
 		@trading_party = TradingParty.new
-		@arr = [Food.new, Ox.new, Clothing.new, Ammunition.new]#, Ox.new]
+		@arr = [Food.new, Ox.new, Clothing.new, Ammunition.new]
 		@traveling_party = TravelingParty.order("updated_at").last()
 	end
 

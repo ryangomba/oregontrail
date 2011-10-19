@@ -5,7 +5,7 @@ class CreateItems < ActiveRecord::Migration
       t.integer :value
       t.integer :weight
       t.integer :quantity
-      t.string :type
+      t.string :kind
 
       t.timestamps
     end
