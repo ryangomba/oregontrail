@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111002231203) do
+ActiveRecord::Schema.define(:version => 20111018230629) do
+
+# Could not dump table "items" because of following StandardError
+#   Unknown type 'relations' for column 'trading_party_id'
+
+  create_table "trading_parties", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 # Could not dump table "travelers" because of following StandardError
 #   Unknown type 'relations' for column 'traveling_party_id'
@@ -22,6 +30,8 @@ ActiveRecord::Schema.define(:version => 20111002231203) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "money"
+    t.integer  "capacity"
   end
 
 end

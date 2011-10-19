@@ -1,0 +1,57 @@
+<%= form_for @trading_party do |f| %>
+
+	<div class="table-field">
+	<table>
+	
+	<tr>
+		<th><b>Item name</th>
+		<th><b>Weight</th>
+		<th><b>Price</th>
+		<th><b>Quantity</th>
+		<th><b>Total Weight</th>
+		<th><b>Total Price</th>
+	</tr>
+	
+	<% @arr.each do |item| %>
+	<tr>
+			<td><%= label(:name, item.name) %></td>
+			<td><%= label(:weight, item.weight) %></td>
+			<td><%= label(:value, item.value) %></td>
+			<td><%= text_field(:item, :quantity) %></td>
+			<td><%= label(:total_weight, item.get_total_weight+' lbs') %></td>
+			<td><%= label(:post, '$ '+item.get_total_price) %></td>
+	</tr>
+	<% end %>	
+	
+	</table>
+	</div>
+	
+	<br><br><br>
+	
+	<div class="table-field">
+	<table cellspacing="20">
+	
+	<tr>
+		<td>
+			
+			<%= f.label("Current Capacity:") %>
+			<%= f.label(:capacity, @traveling_party.get_capacity) %>
+		</td>
+		<td>
+			<%= f.submit 'Purchase Items', :action=>"modify" %>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<%= f.label("Current Money:") %>
+			<%= f.label(:money, @traveling_party.get_money) %>
+		</td>
+		<td>
+			<%= f.submit 'Continue', :action=>"continue"%>
+		</td>
+	</tr>
+	
+	</table>
+	</div>
+<% end %>
