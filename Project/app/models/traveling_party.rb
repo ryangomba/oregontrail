@@ -9,7 +9,7 @@ class TravelingParty < ActiveRecord::Base
     after_create :make_inventory
 
     def make_inventory
-        ['Food', 'Ox', 'Clothing', 'Ammo'].each do |i|
+        ['Food', 'Ox', 'Clothing', 'Ammo', 'Axle', 'Wheel', 'Tongue'].each do |i|
             Item.create(:name => i, :quantity => 0, :traveling_party_id => self.id)
         end
     end
@@ -21,13 +21,5 @@ class TravelingParty < ActiveRecord::Base
     def leader
         return self.travelers.where("profession IS NOT NULL").first()
     end
-	
-	def calculate_money
-		
-	end
-	
-	def calculate_capacity
-		
-	end
 	
 end

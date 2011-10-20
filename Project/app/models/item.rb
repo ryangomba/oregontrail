@@ -14,6 +14,12 @@ class Item < ActiveRecord::Base
             return Clothing.new
         elsif self[:name] == 'Ammo'
             return Ammunition.new
+        elsif self[:name] == 'Axle'
+            return Axle.new
+        elsif self[:name] == 'Wheel'
+            return Wheel.new
+        elsif self[:name] == 'Tongue'
+            return Tongue.new
         end
     end
 
