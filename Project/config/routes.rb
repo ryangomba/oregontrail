@@ -52,9 +52,12 @@ Project::Application.routes.draw do
     root :to => 'home#index'
     match "/new" => 'traveling_parties#new'
     match "/store" => 'home#store'
+    match "/gameplay" => 'home#gameplay'
 
     resources :travelers
     resources :traveling_parties
+	resources :trading_parties
+	resources :items
 
     # See how all your routes lay out with "rake routes"
 

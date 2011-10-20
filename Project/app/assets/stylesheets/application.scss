@@ -122,3 +122,12 @@ div.form-field {
     }
 }
 
+div.table-field {
+    margin-bottom: 10px;
+    label {
+        display: inline-block;
+        min-width: 120px;
+        text-align: left;
+    }
+}
+

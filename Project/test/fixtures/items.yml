@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  value: 1
+  weight: 1
+  quantity: 1
+  type: 
+
+two:
+  name: MyString
+  value: 1
+  weight: 1
+  quantity: 1
+  type: 

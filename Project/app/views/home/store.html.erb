@@ -1,2 +1,43 @@
 <h1>Purchase Items at the Store</h1>
-<p>TODO</p>
+
+<!-- Traveling Party Form -->
+
+<%= form_for @traveling_party do |f| %>
+
+    <!-- Weight & Capacity -->
+
+    <p>You have <span id="cur_weight"><%= @traveling_party.capacity %></span> lbs free</p>
+    <p>You have $<span id="cur_money"><%= @traveling_party.money %></span></p>
+
+    <br/><br/>
+
+    <%= f.hidden_field(:money, :value => @traveling_party.money) %>
+    <%= f.hidden_field(:capacity, :value => @traveling_party.capacity) %>
+
+    <div class="table-field">
+        <table>
+
+        <tr>
+            <th><b>Item name</th>
+            <th><b>Weight</th>
+            <th><b>Price</th>
+            <th><b>Quantity</th>
+        </tr>
+
+            <!-- Items -->
+
+            <%= f.fields_for :items do |i| %>
+                <%= render "item", {:f => i, :item => i.object} %>
+            <% end %>
+        
+        </table>
+    </div>
+        
+    <br/><br/>
+        
+    <div id="move-on">
+    <p><%= f.submit 'Purchase Items' %></p>
+    </div>
+
+<% end %>
+
