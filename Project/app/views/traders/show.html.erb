@@ -21,14 +21,21 @@
             <th><b>Item name</th>
             <th><b>Weight</th>
             <th><b>Price</th>
+			<th><b>Stock</th>
             <th><b>Quantity</th>
         </tr>
 
             <!-- Items -->
 
-            <%= f.fields_for :items do |i| %>
-                <%= render "item", {:f => i, :item => i.object} %>
-            <% end %>
+			<% @store.inventory.each_pair do |k,i| %>
+				<tr class="item">
+				    <td class="name"><%= label(:name, k) %></td>
+				    <td class="weight"><%= label(:weight, k.constantize.new.weight) %></td>
+				    <td class="value"><%= label(:value, i.first.value) %></td>
+					<td class="stock"><%= label(:stock, i.size) %></td>
+				    <td class="quantity"><%= f.number_field(k, :value => 0, :min => 0, :max => i.size) %></td>
+				</tr>
+			<% end %>
         
         </table>
     </div>

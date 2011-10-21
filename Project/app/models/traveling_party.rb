@@ -1,25 +1,23 @@
-class TravelingParty < ActiveRecord::Base
+class TravelingParty < Trader
+  
+  def money
+    if self[:money].nil? then self[:money] = self.leader.money end
+    return self[:money]
+  end
 
-    has_many :travelers, :dependent => :destroy
-	has_many :items, :dependent => :destroy
-    validates_presence_of :speed, :ration, :position
-    accepts_nested_attributes_for :travelers, :reject_if => :reject_traveler, :allow_destroy => true
-	accepts_nested_attributes_for :items, :allow_destroy => true
+  has_one :leader, :dependent => :destroy
+  accepts_nested_attributes_for :leader,
+    :allow_destroy => true
 
-    after_create :make_inventory
+  has_many :followers, :dependent => :destroy
+  accepts_nested_attributes_for :followers,
+    :reject_if => :reject_follower,
+    :allow_destroy => true
 
-    def make_inventory
-        ['Food', 'Ox', 'Clothing', 'Ammo', 'Axle', 'Wheel', 'Tongue'].each do |i|
-            Item.create(:name => i, :quantity => 0, :traveling_party_id => self.id)
-        end
-    end
+  validates_presence_of :speed, :ration, :capacity
 
-    def reject_traveler(attributes)
-       attributes['profession'].blank? and attributes['name'].blank?
-    end
-
-    def leader
-        return self.travelers.where("profession IS NOT NULL").first()
-    end
+  def reject_follower(attributes)
+    attributes['name'].blank?
+  end
 	
 end

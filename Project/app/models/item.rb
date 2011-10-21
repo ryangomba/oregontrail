@@ -1,42 +1,54 @@
-require 'Items'
-
 class Item < ActiveRecord::Base
-	
-    belongs_to :trading_party
-	belongs_to :traveling_party
-	
-    def make
-        if self[:name] == 'Food'
-            return Food.new
-        elsif self[:name] == 'Ox'
-            return Ox.new
-        elsif self[:name] == 'Clothing'
-            return Clothing.new
-        elsif self[:name] == 'Ammo'
-            return Ammunition.new
-        elsif self[:name] == 'Axle'
-            return Axle.new
-        elsif self[:name] == 'Wheel'
-            return Wheel.new
-        elsif self[:name] == 'Tongue'
-            return Tongue.new
-        end
-    end
 
-    def make_all
-        items = []
-        self[:quantity].times do
-            items << self.make
-        end
-        return items
-    end
+  def types
+    return ["Food", "Clothing", "Ammo", "Ox", "Wheel", "Axle", "Tongue"]
+  end
+  
+  def value;  0; end
+  def weight; 0; end
 
-    def total_weight
-        return self.make.weight * self[:quantity]
-    end
+  belongs_to :trader
 
-    def total_price
-        return self.make.value * self[:quantity]
-    end
+  validates_presence_of :type
 
+end
+
+class VariableItem < Item
+  
+  validates_presence_of :health
+  
+end
+
+# REGULAR ITEMS
+
+class Clothing < Item
+  def value;  10; end
+  def weight; 5; end
+end
+
+class Ammo < Item
+  def value;  1; end
+  def weight; 1; end
+end
+
+# VARIABLE ITEMS
+
+class Ox < VariableItem
+  def value;  50; end
+  def weight; 0; end
+end
+
+class Wheel < VariableItem
+  def value;  25; end
+  def weight; 10; end
+end
+
+class Axle < VariableItem
+  def value;  50; end
+  def weight; 15; end
+end
+
+class Tongue < VariableItem
+  def value;  100; end
+  def weight; 20; end
 end

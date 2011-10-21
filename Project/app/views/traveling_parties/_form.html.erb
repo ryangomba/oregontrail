@@ -15,15 +15,18 @@
     </div>
 
     <%= f.hidden_field(:position, :value => 0) %>
-	<%= f.hidden_field(:money, :value => 10) %>
 	<%= f.hidden_field(:capacity, :value => 100) %>
 
-    <!-- Traveler Fields -->
+	<!-- Leader Fields -->
+	
+	<%= f.fields_for :leader do |builder| %>
+        <%= render "traveler", {:f => builder, :is_leader => true} %>
+    <% end %>
 
-    <% is_leader = true %>
-    <%= f.fields_for :travelers do |builder| %>
-        <%= render "traveler", {:f => builder, :is_leader => is_leader} %>
-        <% is_leader = false %>
+    <!-- Follower Fields -->
+
+    <%= f.fields_for :followers do |builder| %>
+        <%= render "traveler", {:f => builder, :is_leader => false} %>
     <% end %>
    
     <!-- Submit Button -->
