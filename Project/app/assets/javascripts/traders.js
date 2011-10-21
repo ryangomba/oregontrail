@@ -17,8 +17,8 @@ function update_money() {
     $('td.quantity input').each(function() {
 
         var quantity = $(this).val()
-        var weight = $(this).parent().parent().parent().children().find('.weight label').first().html()
-        var price = $(this).parent().parent().parent().children().find('.value label').first().html()
+        var weight = $(this).parent().parent().find('.weight label').first().html()
+        var price = $(this).parent().parent().find('.value label').first().html()
 
         quantity = Number(quantity)
         weight = Number(weight)

@@ -1,0 +1,5 @@
+class Follower < Traveler
+  
+  #
+  
+end
