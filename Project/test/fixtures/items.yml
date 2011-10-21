@@ -1,15 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
+  kind: MyString
   value: 1
   weight: 1
-  quantity: 1
-  type: 
+  health: 1
 
 two:
-  name: MyString
+  kind: MyString
   value: 1
   weight: 1
-  quantity: 1
-  type: 
+  health: 1
