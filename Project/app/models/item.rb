@@ -21,6 +21,11 @@ end
 
 # REGULAR ITEMS
 
+class Food < Item
+    def value;  5; end
+    def weight; 2; end
+end
+
 class Clothing < Item
     def value;  10; end
     def weight; 5; end
