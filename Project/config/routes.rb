@@ -56,8 +56,8 @@ Project::Application.routes.draw do
 
     resources :travelers
     resources :traveling_parties
-	resources :trading_parties
-	resources :items
+    resources :trading_parties
+    resources :items
 
     # See how all your routes lay out with "rake routes"
 
