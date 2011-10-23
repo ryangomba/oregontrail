@@ -4,7 +4,7 @@ class Store < Trader
 
     def fill
         items = {
-            "Food" => 10,
+            "Food" => 100,
             "Clothing" => 20,
             "Ammo" => 30,
             "Ox" => 40,

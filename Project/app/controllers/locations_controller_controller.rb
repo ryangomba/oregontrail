@@ -1,5 +1,0 @@
-class LocationsController < ApplicationController
-
-    #
-
-end

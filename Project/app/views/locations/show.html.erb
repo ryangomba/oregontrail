@@ -1,0 +1,27 @@
+<p><%= "Distance traveled: #{@traveling_party.position}" %></p>
+
+<% food = @traveling_party.inventory["Food"] %>
+<p><%= "Food remaining: #{food.nil? ? 0 : food.size}" %></p>
+
+<%= form_for @traveling_party, {:url => "/move"} do |f| %>
+
+<% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+
+<div class="form-field">
+	<%= f.label :speed %>
+	<%= f.select(:speed, scale) %>
+</div>
+
+<div class="form-field">
+	<%= f.label :ration %>
+	<%= f.select(:ration, scale) %>
+</div>
+
+<%= f.hidden_field(:id, :value => @traveling_party.id) %>
+<%= f.hidden_field(:capacity, :value => 100) %>
+
+<!-- Submit Button -->
+
+<%= f.submit "Move" %>
+
+<% end %>
