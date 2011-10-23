@@ -33,7 +33,7 @@ class TravelingPartiesController < ApplicationController
 
             if @traveling_party.update_attributes(f)
                 flash[:notice] = "Successfully updated traveling party."
-                redirect_to '/gameplay/'
+                redirect_to '/play/'
             else
                 flash[:error] = "Transaction could not be completed."
                 redirect_to '/store/'
