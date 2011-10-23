@@ -4,6 +4,10 @@ class TravelingParty < Trader
         if self[:money].nil? then self[:money] = self.leader.money end
         return self[:money]
     end
+    
+    def people
+        return self.followers.count + 1
+    end
 
     has_one :leader, :dependent => :destroy
     accepts_nested_attributes_for :leader,
