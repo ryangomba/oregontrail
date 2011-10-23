@@ -25,10 +25,11 @@ class TravelingPartiesController < ApplicationController
         @traveling_party = TravelingParty.find(params[:id])
 
         f = params[:traveling_party]
+		store_id = f.delete("store_id").to_i
         purchases = {}
         Item.new.types.each do |t|
             n = f.delete(t)
-            if n.to_i > 0 then Item.where(:type => t).limit(n).update_all(:trader_id => @traveling_party.id) end
+            if n.to_i > 0 then Item.where({:trader_id => store_id, :type => t}).limit(n).update_all(:trader_id => @traveling_party.id) end
             end
 
             if @traveling_party.update_attributes(f)

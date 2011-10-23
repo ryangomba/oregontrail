@@ -53,6 +53,7 @@ Project::Application.routes.draw do
     match "/new" => 'traveling_parties#new'
     match "/store" => 'traders#show'
     match "/play" => 'locations#show'
+	match "/move" => 'locations#move'
 
     resources :travelers
     resources :traveling_parties
