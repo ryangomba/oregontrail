@@ -1,36 +1,36 @@
 <%= form_for @traveling_party do |f| %>
 
-    <!-- Traveling Party Fields -->
+<!-- Traveling Party Fields -->
 
-    <% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+<% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
 
-    <div class="form-field">
-    <%= f.label :speed %>
-    <%= f.select(:speed, scale) %>
-    </div>
+<div class="form-field">
+	<%= f.label :speed %>
+	<%= f.select(:speed, scale) %>
+</div>
 
-    <div class="form-field">
-    <%= f.label :ration %>
-    <%= f.select(:ration, scale) %>
-    </div>
+<div class="form-field">
+	<%= f.label :ration %>
+	<%= f.select(:ration, scale) %>
+</div>
 
-    <%= f.hidden_field(:position, :value => 0) %>
-	<%= f.hidden_field(:capacity, :value => 100) %>
+<%= f.hidden_field(:position, :value => 0) %>
+<%= f.hidden_field(:capacity, :value => 100) %>
 
-	<!-- Leader Fields -->
-	
-	<%= f.fields_for :leader do |builder| %>
-        <%= render "traveler", {:f => builder, :is_leader => true} %>
-    <% end %>
+<!-- Leader Fields -->
 
-    <!-- Follower Fields -->
+<%= f.fields_for :leader do |builder| %>
+<%= render "traveler", {:f => builder, :is_leader => true} %>
+<% end %>
 
-    <%= f.fields_for :followers do |builder| %>
-        <%= render "traveler", {:f => builder, :is_leader => false} %>
-    <% end %>
-   
-    <!-- Submit Button -->
+<!-- Follower Fields -->
 
-    <%= f.submit %>
+<%= f.fields_for :followers do |builder| %>
+<%= render "traveler", {:f => builder, :is_leader => false} %>
+<% end %>
+
+<!-- Submit Button -->
+
+<%= f.submit %>
 
 <% end %>

@@ -1,7 +1,7 @@
 <tr id="item-<%= item.id %>">
-    <td class="name"><%= label(:name, item.make.name) %></td>
-    <td class="weight"><%= label(:weight, item.make.weight) %></td>
-    <td class="value"><%= label(:value, item.make.value) %></td>
+	<td class="name"><%= label(:name, item.make.name) %></td>
+	<td class="weight"><%= label(:weight, item.make.weight) %></td>
+	<td class="value"><%= label(:value, item.make.value) %></td>
 
-    <td class="quantity"><%= f.number_field(:quantity, :value=>item.quantity, :min=>item.quantity) %></td>
+	<td class="quantity"><%= f.number_field(:quantity, :value=>item.quantity, :min=>item.quantity) %></td>
 </tr>
