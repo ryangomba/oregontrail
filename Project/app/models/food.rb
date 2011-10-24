@@ -1,4 +1,4 @@
 class Food < Item
-    def value;  5; end
-    def weight; 2; end
+    def value;  1; end
+    def weight; 5; end
 end

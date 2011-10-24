@@ -12,7 +12,8 @@ class LocationsController < ApplicationController
 		@traveling_party.ration = f["ration"].to_i
 		@traveling_party.position += @traveling_party.speed
 		
-		Item.where({:id => @traveling_party.id, :type => "Food"}).limit(@traveling_party.ration).delete_all()
+		food_eaten = @traveling_party.ration * @traveling_party.people
+		Item.where({:trader_id => @traveling_party.id, :type => "Food"}).limit(food_eaten).destroy_all()
 		
 		if @traveling_party.save()
 			flash[:notice] = "Successfully updated traveling party."
