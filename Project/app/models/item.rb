@@ -21,7 +21,6 @@ end
 
 # REGULAR ITEMS
 
-
 class Clothing < Item
     def value;  10; end
     def weight; 5; end
