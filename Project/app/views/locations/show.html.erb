@@ -5,16 +5,17 @@
 
 <%= form_for @traveling_party, {:url => "/move"} do |f| %>
 
-<% scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+<% ration_scale = [0, 1, 2, 3] %>
+<% speed_scale = [0, 10, 20, 30] %>
 
 <div class="form-field">
-	<%= f.label :speed %>
-	<%= f.select(:speed, scale) %>
+	<%= f.label :speed, "Speed (miles/day)" %>
+	<%= f.select(:speed, speed_scale) %>
 </div>
 
 <div class="form-field">
-	<%= f.label :ration %>
-	<%= f.select(:ration, scale) %>
+	<%= f.label :ration, "Rations (meals/day)" %>
+	<%= f.select(:ration, ration_scale) %>
 </div>
 
 <%= f.hidden_field(:id, :value => @traveling_party.id) %>
