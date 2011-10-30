@@ -1,0 +1,14 @@
+$ ->
+	alert "Hello <%=@test%>"
+	latlng = new google.maps.LatLng(43.0, -107.0);
+	myOptions =
+		zoom: 5,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	point = new google.maps.LatLng(43.0, -107.0);
+	marker = new google.maps.Marker({
+		position: point,
+		map: map,
+		title: "Test",
+	});
