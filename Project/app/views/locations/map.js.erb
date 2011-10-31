@@ -1,0 +1,66 @@
+$(document).ready(function() {
+    var latlng, map, marker, myOptions, point, points, line;
+    latlng = new google.maps.LatLng(43.0, -107.0);
+    myOptions = {
+    	zoom: 5,
+    	center: latlng,
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+	points = [];
+	var lastLocation = new Object();
+	var nextLocation = new Object();
+
+	<% found = false %>
+	<% @locations.each do |loc| %>
+	
+		<% if loc.position <= @traveling_party.position %>
+			lastLocation.lat = <%= loc.lat %>;
+			lastLocation.lon = <%= loc.lon %>;
+			lastLocation.pos = <%= loc.position %>;
+		<% elsif found == false %>
+			nextLocation.lat = <%= loc.lat %>;
+			nextLocation.lon = <%= loc.lon %>;
+			nextLocation.pos = <%= loc.position %>;
+			<% found = true %>
+		<% end %>
+		
+    	point = new google.maps.LatLng(<%= loc.lat %>, <%= loc.lon %>);
+		points.push(point);
+		marker = new google.maps.Marker({
+			position: point,
+		    map: map,
+		    title: "<%= loc.name %>"
+		});
+		
+	<% end %>
+	
+	line = new google.maps.Polyline({
+	    path: points,
+	    strokeColor: "#FF0000",
+	    strokeOpacity: 1.0,
+	    strokeWeight: 2,
+		map: map
+	});
+	
+	//alert(lastLocation.pos);
+	//alert(nextLocation.pos);
+	//alert(nextLocation.pos - lastLocation.pos);
+	var percent = (<%= @traveling_party.position %> - lastLocation.pos)/(nextLocation.pos - lastLocation.pos);
+	var myLat = lastLocation.lat + (nextLocation.lat - lastLocation.lat) * percent;
+	var myLon = lastLocation.lon + (nextLocation.lon - lastLocation.lon) * percent;
+	
+	var image = new google.maps.MarkerImage("<%= asset_path 'pin.png' %>",
+	      new google.maps.Size(38, 38),
+	      new google.maps.Point(0, 0),
+	      new google.maps.Point(19, 19));
+	//alert(myLat);
+	//alert(myLon);
+	var myLatLng = new google.maps.LatLng(myLat, myLon);
+	var beachMarker = new google.maps.Marker({
+		position: myLatLng,
+		map: map,
+		icon: image
+	});
+});

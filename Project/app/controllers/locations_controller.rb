@@ -34,7 +34,11 @@ class LocationsController < ApplicationController
 	def map
 		@traveling_party = TravelingParty.find_by_id(session[:party])
 		@locations = Location.all
-		@test = "5"
+		@test = "testing
+		respond_to do |format|
+              format.html
+              format.js
+        end"
 	end
 
 end
