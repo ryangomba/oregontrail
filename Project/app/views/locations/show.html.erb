@@ -1,3 +1,12 @@
+<% at_location = false %>
+<% if @traveling_party.position == @location.position then at_location = true end %>
+
+<% if at_location %>
+	<p>You are at <%= @location.name %></p>
+<% else %>
+	<p><%= "Next Location is #{@location.name}, #{@location.position - @traveling_party.position} miles away." %></p>
+<% end %>
+
 <p><%= "Distance traveled: #{@traveling_party.position}" %></p>
 
 <% food = @traveling_party.inventory["Food"] %>
@@ -26,3 +35,5 @@
 <%= f.submit "Move" %>
 
 <% end %>
+
+<p><a href="/map" target="new">View Map</a></p>
