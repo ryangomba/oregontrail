@@ -54,7 +54,8 @@ Project::Application.routes.draw do
     match "/store" => 'traders#show'
     match "/play" => 'locations#show'
 	match "/move" => 'locations#move'
-	match "/map" =>'locations#map'
+	match "/map" => 'locations#map'
+	match '/win' => 'home#win'
 
     resources :travelers
     resources :traveling_parties

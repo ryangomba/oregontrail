@@ -24,7 +24,11 @@ class LocationsController < ApplicationController
 		
 		if @traveling_party.save()
 			flash[:notice] = "Successfully updated traveling party."
-            redirect_to '/play/'
+            if @traveling_party.position >= 2000
+                redirect_to '/win/'
+            else
+                redirect_to '/play'
+            end
         else
             flash[:error] = "Transaction could not be completed."
             redirect_to '/play/'
