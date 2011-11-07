@@ -3,12 +3,73 @@ class LocationsController < ApplicationController
     def show
 		@traveling_party = TravelingParty.find_by_id(session[:party])
 		@location = Location.where("position >= #{@traveling_party.position}").order("position ASC").first
+	    all_traders = Trader.where(:position => @traveling_party.position)
+	    @traders = []
+	    all_traders.each do |t|
+	        if t.id != @traveling_party.id then @traders.push(t) end
+        end
 	end
 	
+	def next
+	    
+	    f = params[:traveling_party]
+	    @traveling_party = TravelingParty.find(session[:party])
+	    
+	    @river = River.where(:position => @traveling_party.position)
+		if @river.empty? || @traveling_party.speed == 0
+		    move()
+	    else
+	        cross()
+        end
+	    
+    end
+	
+	def cross
+	    
+	    @f = params[:traveling_party]
+	    @traveling_party = TravelingParty.find(@f["id"])
+	    @river = River.where(:position => @traveling_party.position).first
+	    
+	    render "cross"
+	    
+    end
+    
+    def crossed
+        
+        #alter traveling party & then move
+        
+        @traveling_party = TravelingParty.find_by_id(session[:party])
+        @river = River.where(:position => @traveling_party.position).first
+
+        method = params[:method]
+        
+        if method == 'Ferry ($25)'
+            @traveling_party.money -= 25
+        elsif method == 'Ford'
+            flash[:notice] = "Flipped via fording"
+        else
+            flash[:notice] = "Flipped via caulking"
+        end
+        
+        @traveling_party.speed = params["speed"].to_i
+		@traveling_party.ration = params["ration"].to_i
+        
+        if @traveling_party.save()
+			#flash[:notice] = "Successfully updated traveling party."
+        else
+            flash[:error] = "Transaction could not be completed."
+        end
+        
+        move()
+        
+    end
+	
 	def move
-		f = params[:traveling_party]
-		
-		@traveling_party = TravelingParty.find(f["id"])
+	    
+	    f = params[:traveling_party]
+	    if !f then f = params end
+	    @traveling_party = TravelingParty.find(session[:party])
+
 		@traveling_party.speed = f["speed"].to_i
 		@traveling_party.ration = f["ration"].to_i
 		

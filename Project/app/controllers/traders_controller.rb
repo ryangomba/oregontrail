@@ -2,9 +2,9 @@ class TradersController < ApplicationController
 
     def show
         @traveling_party = TravelingParty.find_by_id(session[:party])
-        @store = Store.where(:position => @traveling_party.position).first()
-        if @store.nil?
-            @store = Store.create(:position => @traveling_party.position)
+        @trader = Store.find(params[:id])
+        if @trader.position != @traveling_party.position
+            raise ActionController::RoutingError.new('Not Found')
         end
     end
 

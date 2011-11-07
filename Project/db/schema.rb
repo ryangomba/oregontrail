@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111030203037) do
+ActiveRecord::Schema.define(:version => 20111106215427) do
 
   create_table "items", :force => true do |t|
     t.string   "type"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(:version => 20111030203037) do
     t.integer  "position"
     t.float    "lat"
     t.float    "lon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rivers", :force => true do |t|
+    t.integer  "position"
+    t.integer  "min_depth"
+    t.integer  "max_depth"
+    t.boolean  "ferry"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
