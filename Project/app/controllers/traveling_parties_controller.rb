@@ -13,7 +13,7 @@ class TravelingPartiesController < ApplicationController
         if @traveling_party.save
             session[:party] = @traveling_party.id
             flash[:notice] = "Successfully created traveling party and travelers."
-            redirect_to '/store/'
+            redirect_to '/store/1'
         else
             puts @traveling_party.errors.inspect
             flash[:error] = "Please specify a leader."

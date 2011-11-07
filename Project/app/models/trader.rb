@@ -9,4 +9,8 @@ class Trader < ActiveRecord::Base
         return self.items.group_by(&:type)
     end
 
+    def market_value
+        return 1 + (position/300.0).to_i
+    end
+
 end

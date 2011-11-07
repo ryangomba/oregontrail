@@ -12,6 +12,8 @@
 <% food = @traveling_party.inventory["Food"] %>
 <p><%= "Food remaining: #{food.nil? ? 0 : food.size}" %></p>
 
+<p>Money remaining: $<%= @traveling_party.money %></p>
+
 <%= form_for @traveling_party, {:url => "/move"} do |f| %>
 
 <% ration_scale = [0, 1, 2, 3] %>
@@ -37,3 +39,11 @@
 <% end %>
 
 <p><a href="/map" target="new">View Map</a></p>
+
+<% @traders.each do |t| %>
+	<% if t.type == 'Store' %>
+	<p><a href="/store/<%= t.id %>">Shop at the <%= @location.name %> store</a></p>
+	<% else %>
+	<p><a href="/store/<%= t.id %>">Shop with <%= t.leader.name %> and company</a></p>
+	<% end %>
+<% end %>

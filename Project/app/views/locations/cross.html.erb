@@ -1,0 +1,15 @@
+<h1>River Crossing</h1>
+
+<p>You're crossing a river of depth <%="#{@river.min_depth}ft-#{@river.max_depth}ft" %></p>
+<p>Note: You have $<%= @traveling_party.money %></p>
+
+<p>How would you like to cross?</p>
+
+<%= form_tag("/crossed") do %>
+	<%= select_tag("method", options_for_select(@river.options(@traveling_party.money))) %>
+	<%= submit_tag("Cross") %>
+	
+	<%= hidden_field_tag("speed", @f['speed']) %>
+	<%= hidden_field_tag("ration", @f['ration']) %>
+	
+<% end %>
