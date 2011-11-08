@@ -5,5 +5,8 @@ class HomeController < ApplicationController
     
     def win
     end
+    
+    def die
+    end
 
 end
