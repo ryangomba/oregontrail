@@ -1,4 +1,5 @@
 class LocationsController < ApplicationController
+    before_filter :check_party
 
     def show
 		@location = Location.where("position >= #{@traveling_party.position}").order("position ASC").first
