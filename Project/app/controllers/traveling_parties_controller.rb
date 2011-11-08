@@ -23,7 +23,6 @@ class TravelingPartiesController < ApplicationController
 
     def update
         @traveling_party = TravelingParty.find(params[:id])
-
         f = params[:traveling_party]
 		store_id = f.delete("store_id").to_i
         purchases = {}

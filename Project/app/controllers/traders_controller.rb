@@ -1,7 +1,7 @@
 class TradersController < ApplicationController
+    before_filter :check_party
 
     def show
-        @traveling_party = TravelingParty.find_by_id(session[:party])
         @trader = Store.find(params[:id])
         if @trader.position != @traveling_party.position
             raise ActionController::RoutingError.new('Not Found')
@@ -9,8 +9,6 @@ class TradersController < ApplicationController
     end
 
     def inventory
-        @traveling_party = TravelingParty.find_by_id(session[:party])
-
         if params[:action] == "continue"
             redirect_to '/play/'
         else
