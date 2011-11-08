@@ -11,17 +11,25 @@ class TravelingParty < Trader
 
     has_one :leader, :dependent => :destroy
     accepts_nested_attributes_for :leader,
-    :allow_destroy => true
+        :allow_destroy => true
 
     has_many :followers, :dependent => :destroy
     accepts_nested_attributes_for :followers,
-    :reject_if => :reject_follower,
-    :allow_destroy => true
+        :reject_if => :reject_follower,
+        :allow_destroy => true
 
     validates_presence_of :speed, :ration, :capacity
 
     def reject_follower(attributes)
         attributes['name'].blank?
+    end
+    
+    def kill_member
+        if self.followers.count > 0
+            self.followers.first.destroy
+        else
+            self.destroy
+        end
     end
 
 end
