@@ -12,5 +12,9 @@ class Trader < ActiveRecord::Base
     def market_value
         return 1 + (position/300.0).to_i
     end
+    
+    def raid
+        self.items.limit(5).destroy_all
+    end
 
 end

@@ -56,6 +56,7 @@ Project::Application.routes.draw do
 	match "/move" => 'locations#next'
 	match "/crossed" => 'locations#crossed'
 	match "/map" => 'locations#map'
+	match "/die" => 'home#die'
 	match '/win' => 'home#win'
 
     resources :travelers
