@@ -1,0 +1,12 @@
+BUGS
+- fix store bug so people can't steal stuff
+- fix "flash" notices so they all make sense
+
+FEATURES
+- keep track of health
+
+IMPROVEMENTS
+- show list of people in the party (so we know who's alive)
+- facebook connect & saved games
+- add links to start a new game / cancel old games
+- better ui (wagon & stuff)

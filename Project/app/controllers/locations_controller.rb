@@ -1,7 +1,6 @@
 class LocationsController < ApplicationController
 
     def show
-		@traveling_party = TravelingParty.find_by_id(session[:party])
 		@location = Location.where("position >= #{@traveling_party.position}").order("position ASC").first
 	    all_traders = Trader.where(:position => @traveling_party.position)
 	    @traders = []
@@ -13,7 +12,6 @@ class LocationsController < ApplicationController
 	def next
 	    
 	    f = params[:traveling_party]
-	    @traveling_party = TravelingParty.find(session[:party])
 	    
 	    @river = River.where(:position => @traveling_party.position)
 		if @river.empty? || @traveling_party.speed == 0
@@ -27,7 +25,6 @@ class LocationsController < ApplicationController
 	def cross
 	    
 	    @f = params[:traveling_party]
-	    @traveling_party = TravelingParty.find(@f["id"])
 	    @river = River.where(:position => @traveling_party.position).first
 	    
 	    render "cross"
@@ -38,18 +35,12 @@ class LocationsController < ApplicationController
         
         #alter traveling party & then move
         
-        @traveling_party = TravelingParty.find_by_id(session[:party])
         @river = River.where(:position => @traveling_party.position).first
 
         method = params[:method]
+        flash[:notice] = @river.cross(@traveling_party, method)
         
-        if method == 'Ferry ($25)'
-            @traveling_party.money -= 25
-        elsif method == 'Ford'
-            flash[:notice] = "Flipped via fording"
-        else
-            flash[:notice] = "Flipped via caulking"
-        end
+        check_health()
         
         @traveling_party.speed = params["speed"].to_i
 		@traveling_party.ration = params["ration"].to_i
@@ -68,7 +59,6 @@ class LocationsController < ApplicationController
 	    
 	    f = params[:traveling_party]
 	    if !f then f = params end
-	    @traveling_party = TravelingParty.find(session[:party])
 
 		@traveling_party.speed = f["speed"].to_i
 		@traveling_party.ration = f["ration"].to_i
@@ -84,7 +74,7 @@ class LocationsController < ApplicationController
 		Item.where({:trader_id => @traveling_party.id, :type => "Food"}).limit(food_eaten).destroy_all()
 		
 		if @traveling_party.save()
-			flash[:notice] = "Successfully updated traveling party."
+			#flash[:notice] = "Successfully updated traveling party."
             if @traveling_party.position >= 2000
                 redirect_to '/win/'
             else
@@ -97,7 +87,6 @@ class LocationsController < ApplicationController
 	end
 	
 	def map
-		@traveling_party = TravelingParty.find_by_id(session[:party])
 		@locations = Location.all
 		@test = "testing
 		respond_to do |format|
