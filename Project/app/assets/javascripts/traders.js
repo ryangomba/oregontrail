@@ -7,6 +7,14 @@ $(document).ready(function() {
         update_money()
     })
 
+    $('td.quantity input').change(function() {
+        update_money()
+    })
+
+    $('td.quantity input').keyup(function() {
+        update_money()
+    })
+
 })
 
 function update_money() {
