@@ -17,8 +17,8 @@ class River < ActiveRecord::Base
                 traveling_party.raid
                 return "Flipped! You lost some items!"
             else
-                traveling_party.kill_member
-                return "Flipped! Someone in your party died!"
+                member = traveling_party.kill_member
+                return "Flipped! #{member} died!"
             end
         end
         return "Successfully crossed the river"
@@ -26,14 +26,14 @@ class River < ActiveRecord::Base
     
     def ford
         if (self.min_depth + self.max_depth)/2 > 4
-            return caulk
+            return caulk && caulk
         else
             return false
         end
     end
     
     def caulk
-        rand(3) > 2
+        rand(2) > 0
     end
 	
 end

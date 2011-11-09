@@ -8,44 +8,43 @@ class LocationsController < ApplicationController
 	    all_traders.each do |t|
 	        if t.id != @traveling_party.id then @traders.push(t) end
         end
+        @river = River.find_by_position(@traveling_party.position)
 	end
 	
-	def next
-	    
-	    f = params[:traveling_party]
-	    
-	    @river = River.where(:position => @traveling_party.position)
-		if @river.empty? || @traveling_party.speed == 0
+	def next	    
+	    @river = River.find_by_position(@traveling_party.position)
+		if @river.nil? || @traveling_party.speed == 0
 		    move()
 	    else
 	        cross()
         end
-	    
     end
 	
 	def cross
-	    
 	    @f = params[:traveling_party]
 	    @river = River.where(:position => @traveling_party.position).first
-	    
-	    render "cross"
-	    
+	    render 'cross'
     end
     
     def crossed
         
-        check_party()
+        #alter traveling party & then move
+        
+        @river = River.where(:position => @traveling_party.position).first
 
-        @traveling_party.speed = params["speed"].to_i
-        @traveling_party.ration = params["ration"].to_i
-
-        if @traveling_party.save()
-            #flash[:notice] = "Successfully updated traveling party."
+        method = params[:method]
+        flash[:river] = @river.cross(@traveling_party, method)
+        
+        if @traveling_party.destroyed?
+            redirect_to '/die'
         else
-            flash[:error] = "Transaction could not be completed."
+            @traveling_party.speed = params["speed"].to_i
+    		@traveling_party.ration = params["ration"].to_i
+    		@traveling_party.save
+        
+            move()
         end
-
-        move()
+        
     end
 	
 	def move
@@ -59,7 +58,7 @@ class LocationsController < ApplicationController
 		@location = Location.where("position > #{@traveling_party.position}").order("position ASC").first
 		
 		@traveling_party.position += @traveling_party.speed
-		if @traveling_party.position > @location.position 
+		if @traveling_party.position > @location.position
 			@traveling_party.position = @location.position
 		end
 		

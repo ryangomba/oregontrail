@@ -26,9 +26,11 @@ class TravelingParty < Trader
     
     def kill_member
         if self.followers.count > 0
-            self.followers.first.destroy
+            member = self.followers.first.destroy
+            return member.name
         else
             self.destroy
+            return leader.name
         end
     end
 
