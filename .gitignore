@@ -12,3 +12,5 @@ Project/db/*.sqlite3
 Project/log/*.log
 Project/tmp/
 Project/.sass-cache/
+
+Project/vendor/plugins/.gitkeep
