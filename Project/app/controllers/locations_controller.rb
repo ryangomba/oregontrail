@@ -40,19 +40,6 @@ class LocationsController < ApplicationController
 
         method = params[:method]
         flash[:notice] = @river.cross(@traveling_party, method)
-        
-        check_party()
-        
-        @traveling_party.speed = params["speed"].to_i
-		@traveling_party.ration = params["ration"].to_i
-        
-        if @traveling_party.save()
-			#flash[:notice] = "Successfully updated traveling party."
-        else
-            flash[:error] = "Transaction could not be completed."
-        end
-        
-        move()
 
         #Check if traveling_party is still alive
         @traveling_party = TravelingParty.find_by_id(session[:party])
