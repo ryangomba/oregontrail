@@ -1,20 +1,9 @@
 <%= form_for @traveling_party do |f| %>
 
-<!-- Traveling Party Fields -->
+<!-- Setting Default Traveling Party Fields -->
 
-<% ration_scale = [0, 1, 2, 3] %>
-<% speed_scale = [0, 10, 20, 30] %>
-
-<div class="form-field">
-	<%= f.label :speed, "Speed (miles/day)" %>
-	<%= f.select(:speed, speed_scale) %>
-</div>
-
-<div class="form-field">
-	<%= f.label :ration, "Rations (meals/day)" %>
-	<%= f.select(:ration, ration_scale) %>
-</div>
-
+<%= f.hidden_field(:speed, :value => 20) %>
+<%= f.hidden_field(:ration, :value => 2) %>
 <%= f.hidden_field(:position, :value => 0) %>
 <%= f.hidden_field(:capacity, :value => 100) %>
 
