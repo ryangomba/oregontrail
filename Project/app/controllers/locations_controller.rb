@@ -47,9 +47,9 @@ class LocationsController < ApplicationController
 		@traveling_party.ration = params["ration"].to_i
         
         if @traveling_party.save()
-			#flash[:notice] = "Successfully updated traveling party."
+			flash[:notice] = "Successfully crossed the river."
         else
-            flash[:error] = "Transaction could not be completed."
+            flash[:error] = "Action could not be taken."
         end
         
         move()
@@ -75,7 +75,12 @@ class LocationsController < ApplicationController
 		Item.where({:trader_id => @traveling_party.id, :type => "Food"}).limit(food_eaten).destroy_all()
 		
 		if @traveling_party.save()
-			#flash[:notice] = "Successfully updated traveling party."
+			if @traveling_party.inventory["Food"] == 0
+				flash[:notice] = "Traveled #{@traveling_party.speed} miles but don't have food to eat."
+			else
+				flash[:notice] = "Traveled #{@traveling_party.speed} miles and consumed #{food_eaten} meals."
+			end
+
             if @traveling_party.position >= 2000
                 redirect_to '/win/'
             else

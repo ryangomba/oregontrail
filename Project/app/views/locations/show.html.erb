@@ -1,11 +1,11 @@
 <% at_location = false %>
 <% if @traveling_party.position == @location.position then at_location = true end %>
 
-<% if at_location %>
+<b><% if at_location %>
 	<p>You are at <%= @location.name %></p>
 <% else %>
 	<p><%= "Next Location is #{@location.name}, #{@location.position - @traveling_party.position} miles away." %></p>
-<% end %>
+<% end %></b>
 
 <p><%= "Distance traveled: #{@traveling_party.position}" %></p>
 
