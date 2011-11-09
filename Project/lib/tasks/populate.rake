@@ -31,13 +31,5 @@ namespace :populate do
 	    r3 = River.create(:position => l12.position, :min_depth => 4, :max_depth => 8, :ferry => false)
 	    
 	end
-	
-	desc "Populate database with stores"
-	task :stores =>:environment do
-	    Store.create(:position => 0)
-	    Store.create(:position => 300)
-	    Store.create(:position => 640)
-	    Store.create(:position => 1060)
-    end
 
 end

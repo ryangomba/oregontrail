@@ -1,5 +1,4 @@
 BUGS
-- fix store bug so people can't steal stuff
 - fix "flash" notices so they all make sense
 
 FEATURES
@@ -10,3 +9,4 @@ IMPROVEMENTS
 - facebook connect & saved games
 - add links to start a new game / cancel old games
 - better ui (wagon & stuff)
+- flash notices should alert user about which items were lost, which party members died
