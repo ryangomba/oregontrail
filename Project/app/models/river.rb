@@ -11,6 +11,7 @@ class River < ActiveRecord::Base
     def cross(traveling_party, method)
         if method == 'Ferry ($25)'
             traveling_party.money -= 25
+            traveling_party.save
         elsif (method == 'Ford' && self.ford == false) || (method == 'Caulk' && self.caulk == false)
             if method == 'Caulk'
                 traveling_party.raid
