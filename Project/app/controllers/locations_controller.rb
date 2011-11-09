@@ -41,7 +41,7 @@ class LocationsController < ApplicationController
         method = params[:method]
         flash[:notice] = @river.cross(@traveling_party, method)
         
-        check_health()
+        check_party()
         
         @traveling_party.speed = params["speed"].to_i
 		@traveling_party.ration = params["ration"].to_i
