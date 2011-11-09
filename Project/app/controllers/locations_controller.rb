@@ -34,30 +34,18 @@ class LocationsController < ApplicationController
     
     def crossed
         
-        #alter traveling party & then move
-        
-        @river = River.where(:position => @traveling_party.position).first
+        check_party()
 
-        method = params[:method]
-        flash[:notice] = @river.cross(@traveling_party, method)
-        
-        #Check if traveling_party is still alive
-        @traveling_party = TravelingParty.find_by_id(session[:party])
-		if !@traveling_party
-			redirect_to '/die'
-		else
-	        @traveling_party = TravelingParty.find_by_id(session[:party])
-	        @traveling_party.speed = params["speed"].to_i
-			@traveling_party.ration = params["ration"].to_i
-	        
-	        if @traveling_party.save()
-				flash[:notice] = "Successfully crossed the river."
-	        else
-	            flash[:error] = "Action could not be taken."
-	        end
-	        
-	        move()
-    	end
+        @traveling_party.speed = params["speed"].to_i
+        @traveling_party.ration = params["ration"].to_i
+
+        if @traveling_party.save()
+            #flash[:notice] = "Successfully crossed the river."
+        else
+            flash[:error] = "Action could not be taken."
+        end
+
+        move()
         
     end
 	
