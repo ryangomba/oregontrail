@@ -40,13 +40,12 @@ class LocationsController < ApplicationController
         @traveling_party.ration = params["ration"].to_i
 
         if @traveling_party.save()
-            #flash[:notice] = "Successfully crossed the river."
+            #flash[:notice] = "Successfully updated traveling party."
         else
-            flash[:error] = "Action could not be taken."
+            flash[:error] = "Transaction could not be completed."
         end
 
         move()
-        
     end
 	
 	def move
