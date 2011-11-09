@@ -41,7 +41,6 @@ class LocationsController < ApplicationController
         method = params[:method]
         flash[:notice] = @river.cross(@traveling_party, method)
         
-<<<<<<< HEAD
         check_party()
         
         @traveling_party.speed = params["speed"].to_i
@@ -54,7 +53,7 @@ class LocationsController < ApplicationController
         end
         
         move()
-=======
+
         #Check if traveling_party is still alive
         @traveling_party = TravelingParty.find_by_id(session[:party])
 		if !@traveling_party
@@ -72,7 +71,6 @@ class LocationsController < ApplicationController
 	        
 	        move()
     	end
->>>>>>> 3f42dc75a225baf7a1c22b6b54227ed4fe3875c2
         
     end
 	
