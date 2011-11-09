@@ -26,9 +26,9 @@ namespace :populate do
 	        Store.create(:position => s.position)
 	    end
 	    
-	    River.create(:position => l2.position, :min_depth => 6, :max_depth => 10, :ferry => true)
-	    River.create(:position => l3.position, :min_depth => 2, :max_depth => 4, :ferry => false)
-	    River.create(:position => l12.position, :min_depth => 4, :max_depth => 8, :ferry => false)
+	    r1 = River.create(:position => l2.position, :min_depth => 6, :max_depth => 10, :ferry => true)
+	    r2 = River.create(:position => l3.position, :min_depth => 2, :max_depth => 4, :ferry => false)
+	    r3 = River.create(:position => l12.position, :min_depth => 4, :max_depth => 8, :ferry => false)
 	    
 	end
 
