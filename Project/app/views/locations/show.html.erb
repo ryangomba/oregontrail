@@ -34,7 +34,11 @@
 
 <!-- Submit Button -->
 
+<% if @river %>
+<%= f.submit "Cross the River" %>
+<% else %>
 <%= f.submit "Move" %>
+<% end %>
 
 <% end %>
 

@@ -8,28 +8,22 @@ class LocationsController < ApplicationController
 	    all_traders.each do |t|
 	        if t.id != @traveling_party.id then @traders.push(t) end
         end
+        @river = River.find_by_position(@traveling_party.position)
 	end
 	
-	def next
-	    
-	    f = params[:traveling_party]
-	    
-	    @river = River.where(:position => @traveling_party.position)
-		if @river.empty? || @traveling_party.speed == 0
+	def next	    
+	    @river = River.find_by_position(@traveling_party.position)
+		if @river.nil? || @traveling_party.speed == 0
 		    move()
 	    else
 	        cross()
         end
-	    
     end
 	
 	def cross
-	    
 	    @f = params[:traveling_party]
 	    @river = River.where(:position => @traveling_party.position).first
-	    
-	    render "cross"
-	    
+	    render 'cross'
     end
     
     def crossed
@@ -39,20 +33,17 @@ class LocationsController < ApplicationController
         @river = River.where(:position => @traveling_party.position).first
 
         method = params[:method]
-        flash[:notice] = @river.cross(@traveling_party, method)
+        flash[:river] = @river.cross(@traveling_party, method)
         
-        check_party()
-        
-        @traveling_party.speed = params["speed"].to_i
-		@traveling_party.ration = params["ration"].to_i
-        
-        if @traveling_party.save()
-			flash[:notice] = "Successfully crossed the river."
+        if @traveling_party.destroyed?
+            redirect_to '/die'
         else
-            flash[:error] = "Action could not be taken."
-        end
+            @traveling_party.speed = params["speed"].to_i
+    		@traveling_party.ration = params["ration"].to_i
+    		@traveling_party.save
         
-        move()
+            move()
+        end
         
     end
 	
@@ -67,7 +58,7 @@ class LocationsController < ApplicationController
 		@location = Location.where("position > #{@traveling_party.position}").order("position ASC").first
 		
 		@traveling_party.position += @traveling_party.speed
-		if @traveling_party.position > @location.position 
+		if @traveling_party.position > @location.position
 			@traveling_party.position = @location.position
 		end
 		
