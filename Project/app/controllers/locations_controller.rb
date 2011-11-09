@@ -41,18 +41,23 @@ class LocationsController < ApplicationController
         method = params[:method]
         flash[:notice] = @river.cross(@traveling_party, method)
         
-        check_health()
-        
-        @traveling_party.speed = params["speed"].to_i
-		@traveling_party.ration = params["ration"].to_i
-        
-        if @traveling_party.save()
-			#flash[:notice] = "Successfully updated traveling party."
-        else
-            flash[:error] = "Transaction could not be completed."
-        end
-        
-        move()
+        #Check if traveling_party is still alive
+        @traveling_party = TravelingParty.find_by_id(session[:party])
+		if !@traveling_party
+			redirect_to '/die'
+		else
+	        @traveling_party = TravelingParty.find_by_id(session[:party])
+	        @traveling_party.speed = params["speed"].to_i
+			@traveling_party.ration = params["ration"].to_i
+	        
+	        if @traveling_party.save()
+				flash[:notice] = "Successfully crossed the river."
+	        else
+	            flash[:error] = "Action could not be taken."
+	        end
+	        
+	        move()
+    	end
         
     end
 	
@@ -75,7 +80,12 @@ class LocationsController < ApplicationController
 		Item.where({:trader_id => @traveling_party.id, :type => "Food"}).limit(food_eaten).destroy_all()
 		
 		if @traveling_party.save()
-			#flash[:notice] = "Successfully updated traveling party."
+			if @traveling_party.inventory["Food"] == 0
+				flash[:notice] = "Traveled #{@traveling_party.speed} miles but don't have food to eat."
+			else
+				flash[:notice] = "Traveled #{@traveling_party.speed} miles and consumed #{food_eaten} meals."
+			end
+
             if @traveling_party.position >= 2000
                 redirect_to '/win/'
             else

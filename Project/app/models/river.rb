@@ -17,9 +17,10 @@ class River < ActiveRecord::Base
                 return "Flipped! You lost some items!"
             else
                 traveling_party.kill_member
-                return "Flipped! You lost someone!"
+                return "Flipped! Someone in your party died!"
             end
         end
+        traveling_party.save()
         return "Successfully crossed the river"
     end
     
