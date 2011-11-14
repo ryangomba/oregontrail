@@ -42,11 +42,11 @@ class Ammunition < OneItem
 	end
 end
 
-class Money < OneItem
-	def initialize
-		#super('Food', value, 0)
-	end
-end
+#class Money < OneItem
+#	def initialize
+#		#super('Food', value, 0)
+#	end
+#end
 
 class WagonPart < OneItem
 	attr_accessor :working

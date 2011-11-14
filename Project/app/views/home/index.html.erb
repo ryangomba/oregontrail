@@ -1,2 +1,28 @@
 <h1>Welcome to Oregon Trail</h1>
+
+<% if @user %>
+
+<h2>Your Games</h2>
+<% @user.traveling_parties.each do |t| %>
+	<p>
+		<%= t.leader.name %>
+		,
+		<% t.followers.each do |f| %>
+			<%= f.name %>
+			,
+		<% end %>
+		<%= t.position %>
+		|
+		<%= link_to "Play", t %>
+	</p>
+<% end %>
+<h2>New Game</h2>
 <a class="button" href="new/">New Game</a>
+
+<% else %>
+
+<a href="/auth/facebook" id="connect-with-facebook" target="_new">
+	Connect with Facebook
+</a>
+
+<% end %>

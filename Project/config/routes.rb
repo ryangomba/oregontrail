@@ -58,6 +58,8 @@ Project::Application.routes.draw do
 	match "/map" => 'locations#map'
 	match "/die" => 'home#die'
 	match '/win' => 'home#win'
+	
+	match '/auth/:provider/callback' => 'users#create'
 
     resources :travelers
     resources :traveling_parties
