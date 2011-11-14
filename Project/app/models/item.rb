@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
 
     belongs_to :trader
 
-    validates_presence_of :type
+    validates_presence_of :type, :trader_id
 
 end
 

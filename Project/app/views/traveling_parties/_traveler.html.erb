@@ -4,7 +4,7 @@
 
 		<% if is_leader %>
 		<%= f.label "Leader Name" %>
-		<%= f.text_field(:name) %>
+		<%= f.text_field(:name, value: @user.first_name) %>
 		<% professions = ['Farmer', 'Banker', 'Carpenter'] %>
 		<%= f.label :profession %>
 		<%= f.select(:profession, professions) %>

@@ -7,6 +7,7 @@ class CreateTravelers < ActiveRecord::Migration
       t.string :name
       t.integer :health
       t.integer :traveling_party_id
+      t.string :illnesses, default: '00000'
 
       # Leaders only
       t.string :profession

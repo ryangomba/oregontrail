@@ -1,5 +1,11 @@
 class TravelingPartiesController < ApplicationController
 
+    def show
+        @traveling_party = TravelingParty.find(params[:id])
+        session[:party] = @traveling_party.id
+        redirect_to '/play'
+    end
+
     def new
         @traveling_party = TravelingParty.new
         @traveling_party.build_leader
@@ -9,7 +15,7 @@ class TravelingPartiesController < ApplicationController
     end
 
     def create
-        @traveling_party = TravelingParty.new(params[:traveling_party])
+        @traveling_party = @user.traveling_parties.create(params[:traveling_party])
         if @traveling_party.save
             session[:party] = @traveling_party.id
             flash[:notice] = "Successfully created traveling party and travelers."
