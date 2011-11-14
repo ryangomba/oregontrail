@@ -7,6 +7,7 @@ class CreateTraders < ActiveRecord::Migration
       t.integer :position
       
       # TravelingParties only
+      t.integer :user_id
       t.integer :money
       t.integer :speed
       t.integer :ration

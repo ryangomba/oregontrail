@@ -7,7 +7,8 @@ class CreateItems < ActiveRecord::Migration
       t.integer :trader_id
 
       # VariableItems only
-      t.integer :health
+      t.integer :health, default: 100
+      t.boolean :in_use, default: false
 
       t.timestamps
     end

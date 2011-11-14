@@ -1,8 +1,17 @@
 class TravelingParty < Trader
+    default_scope order("updated_at DESC")
 
     def money
         if self[:money].nil? then self[:money] = self.leader.money end
         return self[:money]
+    end
+
+    def travelers
+        t = []
+        self.followers.each do |f|
+            t << f
+        end
+        t << self.leader
     end
 
     def people
@@ -32,6 +41,10 @@ class TravelingParty < Trader
             self.destroy
             return leader.name
         end
+    end
+    
+    def raid
+        self.items.limit(5).destroy_all
     end
 
 end
