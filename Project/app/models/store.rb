@@ -14,9 +14,13 @@ class Store < Trader
         }
         items.each_pair do |i,n|
             n.times do
-                i.constantize.create(:health => 100, :trader_id => self.id)
+                i.constantize.create(:trader_id => self.id)
             end
         end
+    end
+    
+    def name
+       Location.where(position: self.position) 
     end
 
 end

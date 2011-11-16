@@ -32,6 +32,8 @@
 <%= f.hidden_field(:id, :value => @traveling_party.id) %>
 <%= f.hidden_field(:capacity, :value => 100) %>
 
+<%= render 'travelers/members', travelers: @traveling_party.travelers %>
+
 <!-- Submit Button -->
 
 <% if @river %>
@@ -43,11 +45,6 @@
 <% end %>
 
 <p><a href="/map" target="new">View Map</a></p>
+<p><%= link_to "View your inventory", :items %></p>
 
-<% @traders.each do |t| %>
-	<% if t.type == 'Store' %>
-	<p><a href="/store/<%= t.id %>">Shop at the <%= @location.name %> store</a></p>
-	<% else %>
-	<p><a href="/store/<%= t.id %>">Shop with <%= t.leader.name %> and company</a></p>
-	<% end %>
-<% end %>
+<%= render 'traders/here' %>

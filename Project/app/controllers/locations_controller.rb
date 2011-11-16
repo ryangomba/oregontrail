@@ -3,11 +3,7 @@ class LocationsController < ApplicationController
 
     def show
 		@location = Location.where("position >= #{@traveling_party.position}").order("position ASC").first
-	    all_traders = Trader.where(:position => @traveling_party.position)
-	    @traders = []
-	    all_traders.each do |t|
-	        if t.id != @traveling_party.id then @traders.push(t) end
-        end
+	    @traders = @traveling_party.nearby_traders
         @river = River.find_by_position(@traveling_party.position)
 	end
 	
@@ -61,18 +57,10 @@ class LocationsController < ApplicationController
 		if @traveling_party.position > @location.position
 			@traveling_party.position = @location.position
 		end
-		
-		food_eaten = @traveling_party.ration * @traveling_party.people
-		Item.where({:trader_id => @traveling_party.id, :type => "Food"}).limit(food_eaten).destroy_all()
-		
+				
 		if @traveling_party.save()
-			if @traveling_party.inventory["Food"] == 0
-				flash[:notice] = "Traveled #{@traveling_party.speed} miles but don't have food to eat."
-			else
-				flash[:notice] = "Traveled #{@traveling_party.speed} miles and consumed #{food_eaten} meals."
-			end
-
-            if @traveling_party.position >= 2000
+		    flash[:notice] = @traveling_party.move
+            if @traveling_party.position >= 2000 then
                 redirect_to '/win/'
             else
                 redirect_to '/play'

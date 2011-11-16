@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20111113214202) do
   create_table "items", :force => true do |t|
     t.string   "type"
     t.integer  "trader_id"
-    t.integer  "health"
-    t.boolean  "in_use"
+    t.integer  "health",     :default => 100
+    t.boolean  "in_use",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20111113214202) do
     t.string   "name"
     t.integer  "health"
     t.integer  "traveling_party_id"
-    t.string   "illnesses"
+    t.string   "illnesses",          :default => "00000"
     t.string   "profession"
     t.datetime "created_at"
     t.datetime "updated_at"
