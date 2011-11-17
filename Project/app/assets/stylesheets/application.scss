@@ -71,6 +71,14 @@ a {
     color: inherit;
     text-decoration: none;
 }
+.left {
+	float: left;
+	width: 500px;
+}
+.right {
+	float: left;
+	width: 300px;
+}
 
 /* HEADINGS */
 
@@ -107,6 +115,9 @@ div#flash {
 		margin: 0px;
 	}
 }
+th {
+	font-weight: bold;
+}
 
 /* FORMS */
 
@@ -129,15 +140,16 @@ div.form-field {
     margin-bottom: 10px;
     label {
         display: inline-block;
-        min-width: 180px;
-        text-align: right;
+        min-width: 100px;
+        //text-align: right;
     }
 }
 
-div.table-field {
+table {
     margin-bottom: 10px;
-    label {
+    th, td {
         display: inline-block;
+		height: 30px;
         min-width: 120px;
         text-align: left;
     }

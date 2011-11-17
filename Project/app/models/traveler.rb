@@ -65,7 +65,7 @@ class Traveler < ActiveRecord::Base
     after_save :check_death
     private
     def check_death
-        if self.health < 0 then self.destroy end
+        if self.health <= 0 then self.destroy end
     end
 
 end

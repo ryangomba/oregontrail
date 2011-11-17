@@ -3,14 +3,15 @@ class Store < Trader
     after_create :fill
 
     def fill
+        Item.new
         items = {
-            "Food" => 100,
-            "Clothing" => 20,
-            "Ammo" => 30,
-            "Ox" => 40,
+            "Food" => 1000,
+            "Clothing" => 100,
+            "Ammo" => 100,
+            "Ox" => 100,
             "Wheel" => 50,
-            "Axle" => 60,
-            "Tongue" => 70,
+            "Axle" => 50,
+            "Tongue" => 20,
         }
         items.each_pair do |i,n|
             n.times do
@@ -20,7 +21,7 @@ class Store < Trader
     end
     
     def name
-       Location.where(position: self.position) 
+       Location.find_by_position(self.position).name
     end
 
 end

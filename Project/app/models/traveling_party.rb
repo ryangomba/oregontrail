@@ -2,6 +2,45 @@ require 'Events'
 
 class TravelingParty < Trader
     default_scope order("updated_at DESC")
+    
+    ##### RELATIONS #####
+
+    has_many :travelers
+
+    has_one :leader, :dependent => :destroy
+    accepts_nested_attributes_for :leader,
+        :allow_destroy => true
+
+    has_many :followers, :dependent => :destroy
+    accepts_nested_attributes_for :followers,
+        :reject_if => :reject_follower,
+        :allow_destroy => true
+
+    validates_presence_of :speed, :ration, :capacity
+    
+    ##### RELATION HELPERS #####
+    
+    def reject_follower(attributes)
+        attributes['name'].blank?
+    end
+
+    after_create :fill
+    def fill
+        Item.new
+        items = {
+            "Ox" => 2,
+            "Wheel" => 4,
+            "Axle" => 2,
+            "Tongue" => 1,
+        }
+        items.each_pair do |i,n|
+            n.times do
+                i.constantize.create(:trader_id => self.id)
+            end
+        end
+    end
+
+    ##### ATTRIBUTE HELPERS #####
 
     def name
         "#{self.leader.name} and company"
@@ -11,14 +50,6 @@ class TravelingParty < Trader
         if self[:money].nil? then self[:money] = self.leader.money end
         return self[:money]
     end
-
-    #def party_travelers
-    #    t = []
-    #    self.followers.each do |f|
-    #        t << f
-    #    end
-    #    t << self.leader
-    #end
 
     def people
         return self.followers.count + 1
@@ -33,29 +64,15 @@ class TravelingParty < Trader
         return traders
     end
     
-    has_many :travelers
-
-    has_one :leader, :dependent => :destroy
-    accepts_nested_attributes_for :leader,
-        :allow_destroy => true
-
-    has_many :followers, :dependent => :destroy
-    accepts_nested_attributes_for :followers,
-        :reject_if => :reject_follower,
-        :allow_destroy => true
-
-    validates_presence_of :speed, :ration, :capacity
+    ##### MOVEMENT #####
     
-    def roll
-        Event.list.shuffle.each do |e|
-            event = e.constantize.new
-            if event.roll(self)
-                return event.occur(self)
-            end
-        end
-        return "Moved without incident."
+    def ready
+        return (self.items.oxen.used.count >= 2 &&
+            self.items.wheels.count >= 4 &&
+            self.items.axles.count >= 2 &&
+            self.items.tongues.count >= 1)
     end
-    
+
     def move
         if self.speed > 0
             self.pull
@@ -82,7 +99,7 @@ class TravelingParty < Trader
         self.eat
         if self.speed > 20 then m = 2 else m = 1 end
         self.items.oxen.used.each do |ox|
-            ox.health -= self.pace / 10 * m
+            ox.health -= self.speed / 10 * m
             ox.save
         end
         self.travelers.each do |t|
@@ -96,8 +113,16 @@ class TravelingParty < Trader
 		self.items.food.limit(food_eaten).destroy_all()
     end
 
-    def reject_follower(attributes)
-        attributes['name'].blank?
+    ##### OTHER #####
+    
+    def roll
+        Event.list.shuffle.each do |e|
+            event = e.constantize.new
+            if event.roll(self)
+                return event.occur(self)
+            end
+        end
+        return "Moved without incident."
     end
     
     def kill_member
@@ -105,13 +130,27 @@ class TravelingParty < Trader
             member = self.followers.first.destroy
             return member.name
         else
-            self.destroy
+            leader = self.leader.destroy
             return leader.name
         end
     end
     
     def raid
-        self.items.limit(5).destroy_all
+        self.items.loose.limit(5).destroy_all
+    end
+    
+    def break_down
+        self.items.wagon.first.destroy
+    end
+    
+    ##### CHECKS #####
+    
+    before_save :check_rations
+    private
+    def check_rations
+        if self.ration * self.people > self.items.food.count
+            self.ration = (self.items.food.count / self.people).to_i
+        end
     end
 
 end

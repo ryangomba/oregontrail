@@ -116,7 +116,7 @@ class Damage < Event
 		super('Wagon Damage', 0.1)
 	end
 	def occur(tp)
-	    # TODO
+	    tp.break_down
         return "Your wagon has been damaged."
     end
 end

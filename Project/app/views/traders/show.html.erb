@@ -16,37 +16,34 @@
 <%= f.hidden_field(:money, :value => @traveling_party.money) %>
 <%= f.hidden_field(:capacity, :value => @traveling_party.capacity) %>
 
-<div class="table-field">
-	<table>
+<table>
 
-		<tr>
-			<th><b>Item name</b></th>
-			<th><b>Weight</b></th>
-			<th><b>Price</b></th>
-			<th><b>Stock</b></th>
-			<th><b>Quantity</b></th>
-		</tr>
+	<tr>
+		<th>Item name</th>
+		<th>Weight</th>
+		<th>Price</th>
+		<th>Stock</th>
+		<th>Quantity</th>
+	</tr>
 
-		<!-- Items -->
+	<!-- Items -->
 
-		<% @trader.inventory.each_pair do |k,i| %>
-		<tr class="item">
-			<td class="name"><%= label(:name, k) %></td>
-			<td class="weight"><%= label(:weight, i.first.weight) %></td>
-			<td class="value"><%= label(:value, i.first.value * @trader.market_value) %></td>
-			<td class="stock"><%= label(:stock, i.size) %></td>
-			<td class="quantity"><%= f.number_field(k, :value => 0, :min => 0, :max => i.size) %></td>
-		</tr>
-		<% end %>
+	<% @trader.inventory.each_pair do |k,i| %>
+	<tr class="item">
+		<td class="name"><%= label(:name, k) %></td>
+		<td class="weight"><%= label(:weight, i.first.weight) %></td>
+		<td class="value"><%= label(:value, i.first.value * @trader.market_value) %></td>
+		<td class="stock"><%= label(:stock, i.size) %></td>
+		<td class="quantity"><%= f.number_field(k, :value => 0, :min => 0, :max => i.size) %></td>
+	</tr>
+	<% end %>
 
-	</table>
-</div>
+</table>
 
 <br/><br/>
 
 <div id="move-on">
-	<p><%= f.submit 'Purchase Items' %></p>
-	<p><a class="button" href="/play">Cancel</p>
+	<p><%= f.submit 'Purchase Items' %> <a class="button" href="/play">Cancel</p>
 </div>
 
 <% end %>

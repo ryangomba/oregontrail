@@ -1,5 +1,30 @@
 <h1>Your items</h1>
 
-<% @oxen.each do |ox| %>
-	<p>Ox #<%= ox.id %>, health: <%= ox.health %>, used: <%= ox.in_use %></p> 
+<table>
+<tr>
+	<th>Name</th>
+	<th>Quantity</th>
+	<th>Weight</th>
+	<th>Health</th>
+</tr>
+<% @items.each_pair do |k,i| %>
+<tr>
+	<td><%= k %></td>
+	<td><%= i.size %></td>
+	<td><%= i.size * i.first.weight %></td>
+</tr>
 <% end %>
+</table>
+
+<h2>Your oxen</h2>
+
+<% @traveling_party.items.oxen.each do |ox| %>
+<%= form_for ox, remote: true do |f| %>
+<p>
+	<%= "Ox #{ox.id}: health #{ox.health} | in use: " %>
+	<%= f.check_box :in_use %>
+</p>
+<% end %>
+<% end %>
+
+<p><%= link_to "Back", '/play', class: 'button' %></p>

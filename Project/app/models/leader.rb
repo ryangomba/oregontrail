@@ -9,6 +9,8 @@ class Leader < Traveler
     validates_presence_of :profession
     validates_inclusion_of :profession, :in => PROFESSIONS.keys
 
+    belongs_to :traveling_party, :dependent => :destroy
+
     def money
         return PROFESSIONS[self[:profession]]
     end

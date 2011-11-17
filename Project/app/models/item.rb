@@ -1,6 +1,15 @@
 class Item < ActiveRecord::Base
     scope :food, where(type: 'Food')
+    scope :clothing, where(type: 'Clothing')
+    scope :ammo, where(type: 'Ammo')
+    scope :wheels, where(type: 'Wheel')
+    scope :axles, where(type: 'Axle')
+    scope :tongues, where(type: 'Tongue')
     scope :oxen, where(type: 'Ox')
+    
+    scope :loose, where("type = 'Food' OR type = 'Clothing' OR type = 'Ammo'")
+    scope :wagon, where("type = 'Wheel' OR type = 'Axle' OR type = 'Tongue'")
+    
     scope :used, where(in_use: true)
 
     def types
@@ -17,12 +26,15 @@ class Item < ActiveRecord::Base
 end
 
 class VariableItem < Item
-
     validates_presence_of :health
-
 end
 
 # REGULAR ITEMS
+
+class Food < Item
+    def value;  1; end
+    def weight; 1; end
+end
 
 class Clothing < Item
     def value;  10; end

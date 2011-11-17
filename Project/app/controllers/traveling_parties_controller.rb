@@ -18,7 +18,7 @@ class TravelingPartiesController < ApplicationController
         @traveling_party = @user.traveling_parties.create(params[:traveling_party])
         if @traveling_party.save
             session[:party] = @traveling_party.id
-            flash[:notice] = "Successfully created traveling party and travelers."
+            flash[:notice] = "Traveling party created!"
             redirect_to '/play'
         else
             puts @traveling_party.errors.inspect
@@ -35,18 +35,20 @@ class TravelingPartiesController < ApplicationController
         Item.new.types.each do |t|
             n = f.delete(t)
             if n.to_i > 0 then Item.where({:trader_id => store_id, :type => t}).limit(n).update_all(:trader_id => @traveling_party.id) end
-            end
-
-            if @traveling_party.update_attributes(f)
-                flash[:notice] = "Successfully updated traveling party."
-                redirect_to '/play/'
-            else
-                flash[:error] = "Transaction could not be completed."
-                redirect_to '/store/'
-            end
         end
 
-        def index
+        if @traveling_party.update_attributes(f)
+            flash[:notice] = "Successfully updated traveling party."
+            redirect_to '/play/'
+        else
+            flash[:error] = "Transaction could not be completed."
+            redirect_to '/store/'
         end
-
     end
+
+    def destroy
+        TravelingParty.find(params[:id]).destroy
+        redirect_to root_path
+    end
+
+end
