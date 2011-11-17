@@ -1,95 +1,62 @@
 class LocationsController < ApplicationController
     before_filter :check_party
+    before_filter :update_traveling_party, only: [:move]
 
     def show
 		@location = Location.where("position >= #{@traveling_party.position}").order("position ASC").first
-	    all_traders = Trader.where(:position => @traveling_party.position)
-	    @traders = []
-	    all_traders.each do |t|
-	        if t.id != @traveling_party.id then @traders.push(t) end
-        end
+	    @traders = @traveling_party.nearby_traders
         @river = River.find_by_position(@traveling_party.position)
 	end
 	
-	def next	    
-	    @river = River.find_by_position(@traveling_party.position)
-		if @river.nil? || @traveling_party.speed == 0
-		    move()
-	    else
-	        cross()
-        end
-    end
-	
-	def cross
-	    @f = params[:traveling_party]
-	    @river = River.where(:position => @traveling_party.position).first
-	    render 'cross'
-    end
-    
-    def crossed
-        
-        #alter traveling party & then move
-        
-        @river = River.where(:position => @traveling_party.position).first
-
-        method = params[:method]
-        flash[:river] = @river.cross(@traveling_party, method)
-        
-        if @traveling_party.destroyed?
-            redirect_to '/die'
-        else
-            @traveling_party.speed = params["speed"].to_i
-    		@traveling_party.ration = params["ration"].to_i
-    		@traveling_party.save
-        
-            move()
-        end
-        
+	def update_traveling_party
+	    if params[:traveling_party]
+            @traveling_party.speed = params[:traveling_party][:speed].to_i
+		    @traveling_party.ration = params[:traveling_party][:ration].to_i
+		    @traveling_party.save
+		end
     end
 	
 	def move
+	    @location = Location.where("position > #{@traveling_party.position}").order("position ASC").first
 	    
-	    f = params[:traveling_party]
-	    if !f then f = params end
-
-		@traveling_party.speed = f["speed"].to_i
-		@traveling_party.ration = f["ration"].to_i
+		if !@traveling_party.ready
+		    flash[:notice] = "You're not ready to move. Check your wagon."
+		    redirect_to @location and return
+		end
 		
-		@location = Location.where("position > #{@traveling_party.position}").order("position ASC").first
+		@river = River.find_by_position(@traveling_party.position)
+		if @river && @traveling_party.speed > 0
+		    if params[:method]
+		        flash[:river] = @river.cross(@traveling_party, params[:method])
+		    else
+		        render 'cross' and return
+		    end
+	    end
 		
 		@traveling_party.position += @traveling_party.speed
 		if @traveling_party.position > @location.position
 			@traveling_party.position = @location.position
 		end
-		
-		food_eaten = @traveling_party.ration * @traveling_party.people
-		Item.where({:trader_id => @traveling_party.id, :type => "Food"}).limit(food_eaten).destroy_all()
-		
+				
 		if @traveling_party.save()
-			if @traveling_party.inventory["Food"] == 0
-				flash[:notice] = "Traveled #{@traveling_party.speed} miles but don't have food to eat."
-			else
-				flash[:notice] = "Traveled #{@traveling_party.speed} miles and consumed #{food_eaten} meals."
-			end
-
-            if @traveling_party.position >= 2000
-                redirect_to '/win/'
+		    flash[:notice] = @traveling_party.move
+            if @traveling_party.position >= 2000 then
+                redirect_to '/win/' and return
             else
-                redirect_to '/play'
+                redirect_to @location and return
             end
         else
             flash[:error] = "Transaction could not be completed."
-            redirect_to '/play/'
+            redirect_to @location and return
         end
 	end
 	
 	def map
 		@locations = Location.all
-		@test = "testing
 		respond_to do |format|
               format.html
               format.js
-        end"
+        end
 	end
 
 end

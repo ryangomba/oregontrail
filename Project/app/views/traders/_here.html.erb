@@ -1,0 +1,8 @@
+<h2>Nearby Traders:</h2>
+<% @traders.each do |t| %>
+	<% if t.type == 'Store' %>
+	<p><%= link_to "Shop at the #{t.name} store", t %></p>
+	<% else %>
+	<p><a href="/store/<%= t.id %>">Shop with <%= t.name %></a></p>
+	<% end %>
+<% end %>

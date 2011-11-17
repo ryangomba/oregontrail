@@ -1,0 +1,5 @@
+<h2>Party Members</h2>
+
+<% travelers.each do |t| %>
+	<p><%= t.name %>, health: <%= t.health %>, diseases: <%= t.current_illnesses.count %></p> 
+<% end %>

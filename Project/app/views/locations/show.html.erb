@@ -1,53 +1,55 @@
-<% at_location = false %>
-<% if @traveling_party.position == @location.position then at_location = true end %>
+<h1>On the Trail</h1>
 
-<b><% if at_location %>
-	<p>You are at <%= @location.name %></p>
-<% else %>
-	<p><%= "Next Location is #{@location.name}, #{@location.position - @traveling_party.position} miles away." %></p>
-<% end %></b>
+<div class="left">
 
-<p><%= "Distance traveled: #{@traveling_party.position}" %></p>
+	<% at_location = false %>
+	<% if @traveling_party.position == @location.position then at_location = true end %>
 
-<% food = @traveling_party.inventory["Food"] %>
-<p><%= "Food remaining: #{food.nil? ? 0 : food.size}" %></p>
-
-<p>Money remaining: $<%= @traveling_party.money %></p>
-
-<%= form_for @traveling_party, {:url => "/move"} do |f| %>
-
-<% ration_scale = [0, 1, 2, 3] %>
-<% speed_scale = [0, 10, 20, 30] %>
-
-<div class="form-field">
-	<%= f.label :speed, "Speed (miles/day)" %>
-	<%= f.select(:speed, speed_scale) %>
-</div>
-
-<div class="form-field">
-	<%= f.label :ration, "Rations (meals/day)" %>
-	<%= f.select(:ration, ration_scale) %>
-</div>
-
-<%= f.hidden_field(:id, :value => @traveling_party.id) %>
-<%= f.hidden_field(:capacity, :value => 100) %>
-
-<!-- Submit Button -->
-
-<% if @river %>
-<%= f.submit "Cross the River" %>
-<% else %>
-<%= f.submit "Move" %>
-<% end %>
-
-<% end %>
-
-<p><a href="/map" target="new">View Map</a></p>
-
-<% @traders.each do |t| %>
-	<% if t.type == 'Store' %>
-	<p><a href="/store/<%= t.id %>">Shop at the <%= @location.name %> store</a></p>
+	<b><% if at_location %>
+		<p>You are at <%= @location.name %></p>
 	<% else %>
-	<p><a href="/store/<%= t.id %>">Shop with <%= t.leader.name %> and company</a></p>
+		<p><%= "Next Location is #{@location.name}, #{@location.position - @traveling_party.position} miles away." %></p>
+	<% end %></b>
+
+	<p><%= "Distance traveled: #{@traveling_party.position}" %></p>
+
+	<% food = @traveling_party.inventory["Food"] %>
+	<p><%= "Food remaining: #{food.nil? ? 0 : food.size}" %></p>
+
+	<p>Money remaining: $<%= @traveling_party.money %></p>
+
+	<%= form_for @traveling_party, {url: "/move"} do |f| %>
+
+	<% ration_scale = [0, 1, 2, 3] %>
+	<% speed_scale = [0, 10, 20, 30] %>
+
+	<div class="form-field">
+		<%= f.select(:speed, speed_scale) %>
+		<%= f.label :speed, "Speed (miles/day)" %>
+	</div>
+
+	<div class="form-field">
+		<%= f.select(:ration, ration_scale) %>
+		<%= f.label :ration, "Rations (meals/day)" %>
+	</div>
+
+	<%= f.hidden_field(:id, :value => @traveling_party.id) %>
+	<%= f.hidden_field(:capacity, :value => 100) %>
+
+	<!-- Submit Button -->
+
+	<% if @river %>
+	<%= f.submit "Cross the River" %>
+	<% else %>
+	<%= f.submit "Move" %>
 	<% end %>
-<% end %>
+
+	<% end %>
+
+</div>
+
+<div class="right">
+	<p><a class="button" href="/map" target="new">View Map</a> <%= link_to "View inventory", :items, class: 'button' %></p>
+	<%= render 'traders/here' %>
+	<%= render 'travelers/members', travelers: @traveling_party.travelers %>
+</div>
