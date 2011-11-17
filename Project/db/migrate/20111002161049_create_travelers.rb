@@ -5,7 +5,7 @@ class CreateTravelers < ActiveRecord::Migration
       
       # all Travelers
       t.string :name
-      t.integer :health
+      t.integer :health, default: 100
       t.integer :traveling_party_id
       t.string :illnesses, default: '00000'
 

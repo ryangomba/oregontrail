@@ -1,6 +1,10 @@
 class TradersController < ApplicationController
     before_filter :check_party
 
+    def index
+        @traders = @traveling_party.nearby_traders
+    end
+
     def show
         @trader = Store.find(params[:id])
         if @trader.position != @traveling_party.position

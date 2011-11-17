@@ -5,11 +5,7 @@
 
 <p>How would you like to cross?</p>
 
-<%= form_tag("/crossed") do %>
+<%= form_tag("/move") do %>
 	<%= select_tag("method", options_for_select(@river.options(@traveling_party.money))) %>
-	<%= submit_tag("Cross") %>
-	
-	<%= hidden_field_tag("speed", @f['speed']) %>
-	<%= hidden_field_tag("ration", @f['ration']) %>
-	
+	<%= submit_tag("Cross") %>	
 <% end %>
