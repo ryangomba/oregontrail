@@ -5,13 +5,12 @@
 	<th>Name</th>
 	<th>Quantity</th>
 	<th>Weight</th>
-	<th>Health</th>
 </tr>
 <% @items.each_pair do |k,i| %>
 <tr>
 	<td><%= k %></td>
 	<td><%= i.size %></td>
-	<td><%= i.size * i.first.weight %></td>
+	<td><%= i.size * k.constantize.weight %></td>
 </tr>
 <% end %>
 </table>

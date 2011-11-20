@@ -1,0 +1,9 @@
+<p>
+<% if @kill.nil? %>
+Good luck!
+<% else %>
+Kill? <%= @kill %>
+<% end %>
+</p>
+
+<p>Rounds remaining: <%= @traveling_party.items.ammo.count %></p>

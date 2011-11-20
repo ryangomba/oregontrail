@@ -1,12 +1,24 @@
-BUGS
-- fix store bug so people can't steal stuff
-- fix "flash" notices so they all make sense
+TUES
+** UI evaluation response
 
-FEATURES
-- keep track of health
+DEC 1
+** "skills" (UML & writeup)
+** better UI
+** code review
+** tests
 
-IMPROVEMENTS
-- show list of people in the party (so we know who's alive)
-- facebook connect & saved games
-- add links to start a new game / cancel old games
-- better ui (wagon & stuff)
+?? enable legitimate trading between parties
+
+DONE
+--------------------
+** better facebook popup
+** capacity changes with food consumption/losses
+** view the day (number of moves)
+** change chances based on leader profession
+** what does clothing do?
+** ammo? hunting?
+
+EVAL RESPONSE
+--------------------
+We are not asking the design teams to do any additional implementations to the project. Instead, we are asking you to read the report from the evaluation team and respond to the way you would modify your design and implementation to accommodate the recommended changes. This report should be no longer than 3 pages and should focus on explaining how you would adapt your prototype. We also want you to reflect on whether the object-oriented approach to your design makes it easier or more difficult to make the recommended changes. Please do not be defensive. Your grade is not based on how bad the UI faults were, it is based on your corrective action proposals. Don't try to convince me there are no problems with your UI and the other team was just stupid. Instead detail what you would fix and what changes to the design would be required. Remember this is a design class, so be sure and discuss the impact of your design on the ease of incorporating the changes requested.
+--------------------

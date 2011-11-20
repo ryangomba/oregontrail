@@ -16,12 +16,18 @@ class Item < ActiveRecord::Base
         return ["Food", "Clothing", "Ammo", "Ox", "Wheel", "Axle", "Tongue"]
     end
 
-    def value;  0; end
-    def weight; 0; end
+    def self.value;  0; end
+    def self.weight; 0; end
 
     belongs_to :trader
 
     validates_presence_of :type, :trader_id
+    
+    before_save :check_health
+    private
+    def check_health
+        if self.health > 100 then self.health = 100 end
+    end
 
 end
 
@@ -32,38 +38,38 @@ end
 # REGULAR ITEMS
 
 class Food < Item
-    def value;  1; end
-    def weight; 1; end
+    def self.value;  1; end
+    def self.weight; 1; end
 end
 
 class Clothing < Item
-    def value;  10; end
-    def weight; 5; end
+    def self.value;  10; end
+    def self.weight; 5; end
 end
 
 class Ammo < Item
-    def value;  1; end
-    def weight; 1; end
+    def self.value;  1; end
+    def self.weight; 1; end
 end
 
 class Wheel < Item
-    def value;  25; end
-    def weight; 10; end
+    def self.value;  25; end
+    def self.weight; 10; end
 end
 
 class Axle < Item
-    def value;  50; end
-    def weight; 15; end
+    def self.value;  50; end
+    def self.weight; 15; end
 end
 
 class Tongue < Item
-    def value;  100; end
-    def weight; 20; end
+    def self.value;  100; end
+    def self.weight; 20; end
 end
 
 # VARIABLE ITEMS
 
 class Ox < VariableItem
-    def value;  50; end
-    def weight; 0; end
+    def self.value;  50; end
+    def self.weight; 0; end
 end

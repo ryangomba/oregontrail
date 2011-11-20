@@ -40,6 +40,7 @@ class LocationsController < ApplicationController
 				
 		if @traveling_party.save()
 		    flash[:notice] = @traveling_party.move
+		    flash[:event] = @traveling_party.roll
             if @traveling_party.position >= 2000 then
                 redirect_to '/win/' and return
             else

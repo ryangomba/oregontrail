@@ -11,7 +11,7 @@ class CreateTraders < ActiveRecord::Migration
       t.integer :money
       t.integer :speed
       t.integer :ration
-      t.integer :capacity, default: 500
+      t.integer :days, default: 0
       
       # Store only
       #

@@ -35,12 +35,20 @@ class TravelingParty < Trader
         }
         items.each_pair do |i,n|
             n.times do
-                i.constantize.create(:trader_id => self.id)
+                i.constantize.create(trader_id: self.id, in_use: true)
             end
         end
     end
 
     ##### ATTRIBUTE HELPERS #####
+    
+    def capacity
+        c = 500
+        self.items.each do |i|
+            c -= i.class.weight
+        end
+        return c
+    end
 
     def name
         "#{self.leader.name} and company"
@@ -74,11 +82,14 @@ class TravelingParty < Trader
     end
 
     def move
+        self.days += 1
         if self.speed > 0
             self.pull
-            return "Traveled #{self.speed} miles. #{self.roll}"
+            self.save
+            return "Traveled #{self.speed} miles."
         else
             self.rest
+            self.save
             return "Rested."
         end
     end
@@ -116,13 +127,15 @@ class TravelingParty < Trader
     ##### OTHER #####
     
     def roll
-        Event.list.shuffle.each do |e|
-            event = e.constantize.new
-            if event.roll(self)
-                return event.occur(self)
+        if self.speed > 0
+            Event.list.shuffle.each do |e|
+                event = e.constantize.new
+                if event.roll(self)
+                    return event.occur(self)
+                end
             end
+            return "Moved without incident."
         end
-        return "Moved without incident."
     end
     
     def kill_member
@@ -141,6 +154,17 @@ class TravelingParty < Trader
     
     def break_down
         self.items.wagon.first.destroy
+    end
+    
+    def shoot
+        kill = false
+        if Random.rand < 0.25
+            self.items.food.create            
+            kill = true
+        end
+        self.items.ammo.first.destroy
+        self.save
+        return kill
     end
     
     ##### CHECKS #####
