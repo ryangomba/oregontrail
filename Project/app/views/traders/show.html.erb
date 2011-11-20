@@ -14,7 +14,6 @@
 <%= f.hidden_field(:store_id, :value => @trader.id) %>
 
 <%= f.hidden_field(:money, :value => @traveling_party.money) %>
-<%= f.hidden_field(:capacity, :value => @traveling_party.capacity) %>
 
 <table>
 
@@ -31,8 +30,8 @@
 	<% @trader.inventory.each_pair do |k,i| %>
 	<tr class="item">
 		<td class="name"><%= label(:name, k) %></td>
-		<td class="weight"><%= label(:weight, i.first.weight) %></td>
-		<td class="value"><%= label(:value, i.first.value * @trader.market_value) %></td>
+		<td class="weight"><%= label(:weight, k.constantize.weight) %></td>
+		<td class="value"><%= label(:value, k.constantize.value * @trader.market_value) %></td>
 		<td class="stock"><%= label(:stock, i.size) %></td>
 		<td class="quantity"><%= f.number_field(k, :value => 0, :min => 0, :max => i.size) %></td>
 	</tr>

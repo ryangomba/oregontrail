@@ -12,7 +12,7 @@ class Leader < Traveler
     belongs_to :traveling_party, :dependent => :destroy
 
     def money
-        return PROFESSIONS[self[:profession]]
+        return PROFESSIONS[self.profession]
     end
 
 end

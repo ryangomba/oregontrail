@@ -29,17 +29,23 @@ class Traveler < ActiveRecord::Base
         self.change_sickness(index, '1')
     end
     
+    def has_clothing
+        prob_clothing = self.traveling_party.items.clothing.count / (self.traveling_party.people * 1.0)
+        return Random.rand < prob_clothing
+    end
+    
     def live
         health_d = 0
-        # speed & illnesses
-        if self.traveling_party.speed == 0
-            health_d += 5
-        else
-            if self.traveling_party.speed > 20 then health_d -= 5 end
-            health_d -= current_illnesses.count * 5
-        end
+        # speed
+        if self.traveling_party.speed == 0 then health_d += 5 end
+        if self.traveling_party.speed > 20 then health_d -= 5 end
+        # illnesses
+        if self.traveling_party.speed > 0 then health_d -= current_illnesses.count * 5 end
         # rationing
         health_d -= (2 - self.traveling_party.ration) * 5
+        # clothing
+        if !has_clothing then health_d -= 5 end
+        # done
         self.health += health_d
     end
     

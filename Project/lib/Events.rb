@@ -11,7 +11,7 @@ class Event
     end
 	
 	def self.list
-	    ['Illness','Recovery','Death','Raid','Donation', 'Storm', 'Damage']
+	    ['Illness','Recovery','Death','Raid','Harvest', 'Donation', 'Storm', 'Damage']
     end
 	
 	def occur(tp)
@@ -54,9 +54,7 @@ class Recovery < Event
 		super('Recovery', 0.1)
 	end
 	def roll(tp)
-	    if tp.travelers.sick.empty?
-	        return false
-	    end
+	    if tp.travelers.sick.empty? then return false end
 	    super(tp)
     end
 	def occur(tp)
@@ -86,6 +84,25 @@ class Raid < Event
     end
 end
 
+class Harvest < Event
+    def initialize
+		super('Harvest', 0.1)
+	end
+	def roll(tp)
+	    if tp.leader.profession == 'Farmer'
+	        super(tp)
+	    else
+	        return false
+	    end
+    end
+	def occur(tp)
+	    Random.new.rand(10..50).times do
+	        Food.create(trader_id: tp.id)
+        end
+        return "You were able to harvest some food."
+    end
+end
+
 class Donation < Event
     def initialize
 		super('Donation', 0.1)
@@ -105,8 +122,9 @@ class Storm < Event
 	def occur(tp)
 	    days = Random.new.rand(1..10)
 	    days.times do
-	        tp.eat
+	        tp.rest
         end
+        tp.days += days - 1
         return "A storm set you back #{days} days."
     end
 end
@@ -115,6 +133,13 @@ class Damage < Event
     def initialize
 		super('Wagon Damage', 0.1)
 	end
+	def roll(tp)
+	    if tp.leader.profession != 'Carpenter'
+	        super(tp)
+	    else
+	        return false
+	    end
+    end
 	def occur(tp)
 	    tp.break_down
         return "Your wagon has been damaged."

@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20111113214202) do
     t.integer  "money"
     t.integer  "speed"
     t.integer  "ration"
-    t.integer  "capacity",   :default => 500
+    t.integer  "days",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
