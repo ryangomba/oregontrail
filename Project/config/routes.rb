@@ -50,12 +50,20 @@ Project::Application.routes.draw do
     # just remember to delete public/index.html.
 
     root :to => 'home#index'
+    match "/login" => 'home#auth'
+    match "/logout" => 'home#logout'
+    
     match "/new" => 'traveling_parties#new'
+    
     match "/play" => 'locations#show'
 	match "/move" => 'locations#move'
 	match "/map" => 'locations#map'
+	
 	match "/die" => 'home#die'
 	match '/win' => 'home#win'
+	
+	match "/hunt" => 'items#hunt'
+	match "/shoot" => 'items#shoot'
 	
 	match '/auth/:provider/callback' => 'users#create'
 

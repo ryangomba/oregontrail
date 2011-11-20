@@ -1,0 +1,27 @@
+<% if @user %>
+
+	<% if @user.traveling_parties.count > 0 %>
+	<h2>Your Games:</h2>
+	<% @user.traveling_parties.each do |t| %>
+		<p>
+			<%= t.leader.name %>
+			<% t.followers.each do |f| %>
+				+ <%= f.name %>
+			<% end %>
+			(<%= t.position %> mi) |
+			<%= link_to "Play", t %> |
+			<%= link_to 'Destroy', t, confirm: 'Are you sure you want to delete this game?', method: "delete" %>
+		</p>
+	<% end %>
+	<br/>
+	<% end %>
+
+	<p><a class="button" href="new/">New Game</a></p>
+	
+	<p><a id="logout" onclick="logout()" class="button">Logout</p>
+
+<% else %>
+
+	<p><a id="connect-with-facebook" onclick="popupCenter()" class="button">Connect with Facebook</a></p>
+
+<% end %>

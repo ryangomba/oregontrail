@@ -1,4 +1,4 @@
-<h1>On the Trail</h1>
+<h1>On the Trail (Day <%= @traveling_party.days %>)</h1>
 
 <div class="left">
 
@@ -45,6 +45,8 @@
 	<% end %>
 
 	<% end %>
+	
+	<a href="/" class="button">Quit</a>
 
 </div>
 
@@ -52,4 +54,5 @@
 	<p><a class="button" href="/map" target="new">View Map</a> <%= link_to "View inventory", :items, class: 'button' %></p>
 	<%= render 'traders/here' %>
 	<%= render 'travelers/members', travelers: @traveling_party.travelers %>
+	<%= render 'hunt' %>
 </div>

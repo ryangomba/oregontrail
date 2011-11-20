@@ -13,5 +13,15 @@ class ItemsController < ApplicationController
             format.js
         end
     end
+    
+    def hunt
+    end
+    
+    def shoot
+        @kill = @traveling_party.shoot
+        respond_to do |format|
+            format.js
+        end
+    end
 
 end
