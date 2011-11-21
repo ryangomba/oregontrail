@@ -3,10 +3,11 @@ TUES
 
 DEC 1
 ** "skills" (UML & writeup)
-** better UI
 ** code review
 ** tests
 
+FINAL
+** better UI
 ?? enable legitimate trading between parties
 
 DONE
