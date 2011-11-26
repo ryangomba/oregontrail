@@ -1,13 +1,39 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  kind: MyString
-  value: 1
-  weight: 1
-  health: 1
+tongue:
+    type: Tongue
+    trader: traveling_party
 
-two:
-  kind: MyString
-  value: 1
-  weight: 1
-  health: 1
+front_axle:
+    type: Axle
+    trader: traveling_party
+    
+back_axle:
+    type: Axle
+    trader: traveling_party
+        
+front_left_wheel:
+    type: Wheel
+    trader: traveling_party
+    
+front_right_wheel:
+    type: Wheel
+    trader: traveling_party
+
+back_left_wheel:
+    type: Wheel
+    trader: traveling_party
+
+back_right_wheel:
+    type: Wheel
+    trader: traveling_party
+
+ox1:
+    type: Ox
+    trader: traveling_party
+    in_use: true
+    
+ox2:
+    type: Ox
+    trader: traveling_party
+    in_use: true

@@ -1,0 +1,4 @@
+rake db:test:load
+rake db:test:prepare
+rake test
+

@@ -4,7 +4,7 @@ class CreateTraders < ActiveRecord::Migration
       t.string :type
       
       # all Traders
-      t.integer :position
+      t.integer :position, default: 0
       
       # TravelingParties only
       t.integer :user_id
