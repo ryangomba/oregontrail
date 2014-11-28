@@ -1,5 +1,7 @@
 require 'Events'
 
+WAGON_CAPACITY = 500
+
 class TravelingParty < Trader
     default_scope order("updated_at DESC")
     
@@ -16,7 +18,7 @@ class TravelingParty < Trader
         :reject_if => :reject_follower,
         :allow_destroy => true
 
-    validates_presence_of :speed, :ration, :capacity
+    validates_presence_of :speed, :ration, :capacity, :leader
     
     ##### RELATION HELPERS #####
     
@@ -43,7 +45,7 @@ class TravelingParty < Trader
     ##### ATTRIBUTE HELPERS #####
     
     def capacity
-        c = 500
+        c = WAGON_CAPACITY
         self.items.each do |i|
             c -= i.class.weight
         end

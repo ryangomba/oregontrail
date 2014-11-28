@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20111113214202) do
 
   create_table "traders", :force => true do |t|
     t.string   "type"
-    t.integer  "position"
+    t.integer  "position",   :default => 0
     t.integer  "user_id"
     t.integer  "money"
     t.integer  "speed"
